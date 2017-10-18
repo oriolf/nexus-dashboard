@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+@import "https://fonts.googleapis.com/css?family=Material+Icons";
+@import "https://fonts.googleapis.com/css?family=Roboto:400,300";
+
+html, body {
+  display: flex;
+  flex-direction: column;
+
+  font-family: Roboto, Arial, sans-serif;
+  background-color: #eee;
+  margin: 0;
+  height: 100%;
+}
+
+.middle-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-drawer-container {
+  background-color: #eee;
+}
+
+.mat-card {
+  margin: 10px;
+}
+
+.mat-drawer {
+  min-width: 250px !important;
+  background-color: #eee !important;
+}
+
+.menu-button {
+  width: 100%;
+  margin: 10px !important;
+  text-align: left !important;
+}
