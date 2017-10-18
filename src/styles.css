@@ -25,13 +25,12 @@ html, body {
   margin: 10px;
 }
 
-.mat-drawer {
-  min-width: 250px !important;
-  background-color: #eee !important;
+.pull-right-inner {
+  display: flex !important;
+  justify-content: flex-end;
 }
 
-.menu-button {
-  width: 100%;
-  margin: 10px !important;
-  text-align: left !important;
+.center-inner {
+  display: flex !important;
+  justify-content: center;
 }

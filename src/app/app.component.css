@@ -1,0 +1,10 @@
+.mat-drawer {
+  min-width: 250px;
+  background-color: #eee;
+}
+
+.menu-button {
+  width: 100%;
+  margin: 10px;
+  text-align: left;
+}

@@ -9,7 +9,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container style="height: calc(100vh - 64px);">
-	<mat-sidenav #sidenav mode="side" opened="true">
+	<mat-sidenav #sidenav mode="side" opened="false">
 		<mat-list>
 			<h2 mat-subheader>Usuarios</h2>
 			<button mat-button class="menu-button">
@@ -30,14 +30,7 @@
 			</button>
 		</mat-list>
 	</mat-sidenav>
-
-	<mat-card>
-		<mat-card-header>
-			Dashboard
-		</mat-card-header>
-		<mat-card-content>
-			Nothing to see here yet
-		</mat-card-content>
-	</mat-card>
-
+	
+	<app-dashboard *ngIf="nexus.isLogged()"></app-dashboard> <!-- should be router -->
+	<app-login *ngIf="!nexus.isLogged()"></app-login>
 </mat-sidenav-container>
