@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { routing } from './app.routes';
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,6 +19,7 @@ import {
 } from '@angular/material';
 
 import { NexusService } from './services/nexus.service';
+import { LoggedInGuard } from './guards/logged-in.guard';
 
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -33,6 +35,7 @@ import { UserComponent } from './components/users/user/user.component';
     UserComponent
   ],
   imports: [
+    routing,
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
@@ -47,7 +50,10 @@ import { UserComponent } from './components/users/user/user.component';
     MatFormFieldModule,
     MatInputModule
   ],
-  providers: [NexusService],
+  providers: [
+    LoggedInGuard,
+    NexusService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

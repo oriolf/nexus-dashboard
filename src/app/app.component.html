@@ -3,7 +3,7 @@
 		<mat-icon (click)="sidenav.toggle()">menu</mat-icon>
 	</button>
 	<span class="middle-spacer"></span>
-	<button mat-icon-button>
+	<button mat-icon-button *ngIf="nexus.isLogged()" (click)="logout()">
 		<mat-icon>exit_to_app</mat-icon>
 	</button>
 </mat-toolbar>
@@ -11,26 +11,20 @@
 <mat-sidenav-container style="height: calc(100vh - 64px);">
 	<mat-sidenav #sidenav mode="side" opened="false">
 		<mat-list>
-			<h2 mat-subheader>Usuarios</h2>
-			<button mat-button class="menu-button">
-				<mat-list-item>
-					<mat-icon mat-list-icon>people</mat-icon>
-					<h3 mat-line>Usuarios 1</h3>
-				</mat-list-item>
-			</button>
+			<div *ngFor="let linkGroup of linkGroups">
+				<h2 mat-subheader>{{ linkGroup.name }}</h2>
 
-			<mat-divider></mat-divider>
+				<button mat-button class="menu-button" *ngFor="let link of linkGroup.links" [routerLink]="link.route">
+					<mat-list-item>
+						<mat-icon mat-list-icon>{{ link.icon }}</mat-icon>
+						<h3 mat-line>{{ link.name }}</h3>
+					</mat-list-item>
+				</button>
 
-			<h2 mat-subheader>Tareas</h2>
-			<button mat-button class="menu-button">
-				<mat-list-item>
-					<mat-icon mat-list-icon>build</mat-icon>
-					<h3 mat-line>Tareas 1</h3>
-				</mat-list-item>
-			</button>
+				<mat-divider></mat-divider>
+			</div>
 		</mat-list>
 	</mat-sidenav>
-	
-	<app-dashboard *ngIf="nexus.isLogged()"></app-dashboard> <!-- should be router -->
-	<app-login *ngIf="!nexus.isLogged()"></app-login>
+
+	<router-outlet></router-outlet>
 </mat-sidenav-container>

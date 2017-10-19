@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { environment } from '../../environments/environment';
 
@@ -9,7 +10,9 @@ export class NexusService {
   client: any;
   logged: boolean = false;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   isLogged() { return this.logged; }
 
@@ -19,6 +22,11 @@ export class NexusService {
 
   taskPush(path: string, params: any, timeout: number): Promise<any> {
     return this.genericNexusFunction('taskPush', [path, params, timeout]);
+  }
+
+  logout() {
+    this.client = null;
+    location.reload();
   }
 
   login(user: string, password: string, host?: string) {
@@ -34,6 +42,7 @@ export class NexusService {
             if (!error) {
               that.logged = true;
               res(client);
+              that.router.navigate(['/dashboard']);
             } else {
               client.close();
               rej(false);
