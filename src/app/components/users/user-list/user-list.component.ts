@@ -1,13 +1,16 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog, MatSnackBar, MatPaginator } from '@angular/material';
 
 import { ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
-import { MatPaginator } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../../../shared/models';
 import { NexusService } from '../../../services/nexus.service';
+
+import { UserCreateDialogComponent } from '../user-create-dialog/user-create-dialog.component';
+import { AreYouSureDialogComponent } from '../../shared/are-you-sure-dialog/are-you-sure-dialog.component';
 
 @Component({
   selector: 'app-user-list',
@@ -22,9 +25,13 @@ export class UserListComponent implements OnInit {
   displayedColumns = ['actions', 'username', 'maxSessions', 'enabled'];
   dataSource: UserDataSource | null;
   triggerUpdateUsers: EventEmitter<any> = new EventEmitter;
+  USER_DELETE_TEXT = 'If you accept, the user will be permanently deleted.';
 
   constructor(
-    private nexus: NexusService
+    private nexus: NexusService,
+    public snackBar: MatSnackBar,
+    public UserCreateDialog: MatDialog,
+    public AreYouSureDialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -50,13 +57,26 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  userAdd() {
-    this.updateLength.emit(null);
+  openUserCreateDialog(): void {
+    let dialogRef = this.UserCreateDialog.open(UserCreateDialogComponent, { width: '400px' });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) { this.updateLength.emit(null); }
+    });
   }
 
   userDelete(username: string) {
-    console.log('User deleted:', username);
-    this.updateLength.emit(null);
+    let dialogRef = this.AreYouSureDialog.open(AreYouSureDialogComponent, { width: '400px', data: { text: this.USER_DELETE_TEXT } })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.nexus.userDelete(username).then(() => {
+          this.updateLength.emit(null);
+        }).catch(err => {
+          this.snackBar.open('Error deleting user: ' + err.message, 'OK');
+        });
+      }
+    })
   }
 
 }

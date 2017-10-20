@@ -17,7 +17,9 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatTableModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatDialogModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { NexusService } from './services/nexus.service';
@@ -27,6 +29,8 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserListComponent } from './components/users/user-list/user-list.component';
 import { UserComponent } from './components/users/user/user.component';
+import { UserCreateDialogComponent } from './components/users/user-create-dialog/user-create-dialog.component';
+import { AreYouSureDialogComponent } from './components/shared/are-you-sure-dialog/are-you-sure-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,13 @@ import { UserComponent } from './components/users/user/user.component';
     LoginComponent,
     DashboardComponent,
     UserListComponent,
-    UserComponent
+    UserComponent,
+    UserCreateDialogComponent,
+    AreYouSureDialogComponent
+  ],
+  entryComponents: [
+    UserCreateDialogComponent,
+    AreYouSureDialogComponent
   ],
   imports: [
     routing,
@@ -52,7 +62,9 @@ import { UserComponent } from './components/users/user/user.component';
     MatFormFieldModule,
     MatInputModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule,
+    MatSnackBarModule
   ],
   providers: [
     LoggedInGuard,

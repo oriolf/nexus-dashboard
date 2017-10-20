@@ -41,6 +41,14 @@ export class NexusService {
     return this.userList(prefix, 0, 0).then(res => res.length);
   }
 
+  userCreate(username: string, password: string): Promise<any> {
+    return this.genericNexusFunction('userCreate', [username, password]);
+  }
+
+  userDelete(username: string): Promise<any> {
+    return this.genericNexusFunction('userDelete', [username]);
+  }
+
   userList(prefix: string, limit: number, skip: number): Promise<User[]> {
     return this.genericNexusFunction('userList', [prefix, limit, skip]);
   }
@@ -68,7 +76,7 @@ export class NexusService {
             if (!error) {
               that.logged = true;
               res(client);
-              that.router.navigate(['/dashboard']);
+              that.router.navigate(['/users']);
             } else {
               client.close();
               rej(false);

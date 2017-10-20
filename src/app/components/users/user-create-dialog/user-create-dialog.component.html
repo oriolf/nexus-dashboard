@@ -1,0 +1,25 @@
+<div *ngIf="!creating">
+  <h2 mat-header>Create new user</h2>
+
+  <form [formGroup]="form">
+    <mat-form-field style="width: 100%;">
+      <input matInput placeholder="Enter the new user's name" formControlName="user">
+    </mat-form-field>
+
+    <mat-form-field style="width: 100%;">
+      <input matInput placeholder="Enter the new user's password" [type]="hide ? 'password' : 'text'" formControlName="password">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    </mat-form-field>
+
+    <div class="float-left">
+      <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+    </div>
+    <div class="pull-right-inner">
+      <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="createUser()">Create</button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="creating" class="center-inner">
+  <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'"></mat-progress-spinner>
+</div>

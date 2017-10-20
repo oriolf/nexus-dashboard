@@ -25,6 +25,15 @@ html, body {
   margin: 10px;
 }
 
+.float-left {
+  float: left;
+}
+
+.pull-left-inner {
+  display: flex !important;
+  justify-content: flex-start;
+}
+
 .pull-right-inner {
   display: flex !important;
   justify-content: flex-end;

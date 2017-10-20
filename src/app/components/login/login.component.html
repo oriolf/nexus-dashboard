@@ -15,14 +15,14 @@
         <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" formControlName="password">
         <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
       </mat-form-field>
+
+      <div class="pull-right-inner">
+        <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="login()">Log in</button>
+      </div>
     </form>
   </mat-card-content>
 
   <mat-card-content *ngIf="loggingIn" class="center-inner">
     <mat-progress-spinner [color]="'primary'" [mode]="'indeterminate'"></mat-progress-spinner>
   </mat-card-content>
-
-  <mat-card-actions class="pull-right-inner">
-    <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="login()">Log in</button>
-  </mat-card-actions>
 </mat-card>
