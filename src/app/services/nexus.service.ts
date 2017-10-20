@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../environments/environment';
+import { User } from '../shared/models';
 
 declare var nexus: any;
 
@@ -16,7 +18,30 @@ export class NexusService {
 
   isLogged() { return this.logged; }
 
-  userList(prefix: string, limit: number, skip: number): Promise<any[]> {
+  // TODO handle errors correctly
+  userListObservable(params: Observable<any>): Observable<User[]> {
+    return new Observable(observer => {
+      params.subscribe(p => {
+        this.userList(p.prefix, p.pageSize, p.pageSize*p.pageIndex).then(res => {
+          observer.next(res);
+        });
+      });
+    });
+  }
+
+  userTotalObservable(prefix: Observable<string>): Observable<number> {
+    return new Observable(observer => {
+      prefix.subscribe(p => {
+        this.userList(p, 0, 0).then(res => observer.next(res.length));
+      });
+    });
+  }
+
+  userTotal(prefix: string): Promise<number> {
+    return this.userList(prefix, 0, 0).then(res => res.length);
+  }
+
+  userList(prefix: string, limit: number, skip: number): Promise<User[]> {
     return this.genericNexusFunction('userList', [prefix, limit, skip]);
   }
 
@@ -25,6 +50,7 @@ export class NexusService {
   }
 
   logout() {
+    this.client.close();
     this.client = null;
     location.reload();
   }
