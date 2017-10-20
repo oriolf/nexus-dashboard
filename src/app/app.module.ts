@@ -15,7 +15,9 @@ import {
   MatListModule,
   MatProgressSpinnerModule,
   MatFormFieldModule,
-  MatInputModule
+  MatInputModule,
+  MatTableModule,
+  MatPaginatorModule
 } from '@angular/material';
 
 import { NexusService } from './services/nexus.service';
@@ -48,7 +50,9 @@ import { UserComponent } from './components/users/user/user.component';
     MatListModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     LoggedInGuard,
