@@ -5,27 +5,38 @@
         <input matInput placeholder="Filter users" [formControl]="prefix">
       </mat-form-field>
     </div>
-    
+
     <mat-table #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button>
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button mat-icon-button (click)="userDelete(row.User)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
 
       <ng-container matColumnDef="username">
         <mat-header-cell *matHeaderCellDef> Username </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.User }} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="templates">
-        <mat-header-cell *matHeaderCellDef> Templates </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.Templates }} </mat-cell>
-      </ng-container>
-
       <ng-container matColumnDef="maxSessions">
         <mat-header-cell *matHeaderCellDef> Max Sessions </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.name }} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{ row.MaxSessions }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="enabled">
         <mat-header-cell *matHeaderCellDef> Enabled </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ !row.Disabled }} </mat-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-icon *ngIf="!row.Disabled">check_circle</mat-icon>
+          <mat-icon *ngIf="row.Disabled">clear</mat-icon>
+        </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

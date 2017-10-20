@@ -22,7 +22,7 @@ export class NexusService {
   userListObservable(params: Observable<any>): Observable<User[]> {
     return new Observable(observer => {
       params.subscribe(p => {
-        this.userList(p.prefix, p.pageSize, p.pageSize*p.pageIndex).then(res => {
+        this.userList(p.prefix, p.limit, p.skip).then(res => {
           observer.next(res);
         });
       });

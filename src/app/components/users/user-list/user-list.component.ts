@@ -19,9 +19,8 @@ export class UserListComponent implements OnInit {
   lengthUpdated: EventEmitter<any> = new EventEmitter();
   updateLength: EventEmitter<any> = new EventEmitter();
   prefix = new FormControl('');
-  displayedColumns = ['username', 'templates', 'maxSessions', 'enabled'];
+  displayedColumns = ['actions', 'username', 'maxSessions', 'enabled'];
   dataSource: UserDataSource | null;
-  displayDataChanges: Observable<any>;
   triggerUpdateUsers: EventEmitter<any> = new EventEmitter;
 
   constructor(
@@ -29,10 +28,6 @@ export class UserListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.displayDataChanges = Observable.merge(...[
-      this.lengthUpdated,
-      this.paginator.page
-    ]);
     this.dataSource = new UserDataSource(this.nexus, this.paginator, this.triggerUpdateUsers);
     this.subscribeUsersLength();
     this.updateLength.emit(null); // trigger first get users
@@ -48,8 +43,8 @@ export class UserListComponent implements OnInit {
         this.paginator.length = total;
         this.triggerUpdateUsers.emit({
           prefix: this.prefix.value,
-          pageSize: this.paginator.pageSize,
-          pageIndex: this.paginator.pageIndex
+          limit: this.paginator.pageSize,
+          skip: this.paginator.pageSize * this.paginator.pageIndex
         });
       });
     });
@@ -59,7 +54,8 @@ export class UserListComponent implements OnInit {
     this.updateLength.emit(null);
   }
 
-  userDelete() {
+  userDelete(username: string) {
+    console.log('User deleted:', username);
     this.updateLength.emit(null);
   }
 
