@@ -1,0 +1,32 @@
+{
+    "input": {
+        "title": "Maximum number of sequence",
+        "type": "object",
+        "properties": {
+            "n": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1000
+            }
+        }
+    },
+    "result": {
+        "type": "array",
+        "items": { "type": "number" }
+    },
+    "error": {
+        "type": "object",
+        "properties": {
+            "code": {"type": "integer"},
+            "message": {"type": "string"},
+            "data": {"type": "object"}
+        },
+        "required": ["code", "message"]
+    },
+    "pacts": [
+        { "input": { "n": 0 }, "output": [0] },
+        { "input": { "n": 1 }, "output": [0, 1] },
+        { "input": { "n": 5 }, "output": [0, 1, 1, 2, 3, 5] },
+        { "input": { "n": 13 }, "output": [0, 1, 1, 2, 3, 5, 8, 13] }
+    ]
+}
