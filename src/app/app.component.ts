@@ -17,9 +17,10 @@ export class AppComponent {
       ]
     },
     {
-      name: 'Tareas',
+      name: 'General',
       links: [
-        { name: 'Tareas 1', route: '/dashboard', icon: 'build' },
+        { name: 'Nodes', route: '/nodes', icon: 'cloud' },
+        { name: 'Tareas 1', route: '/dashboard', icon: 'build' }
       ]
     }
   ];

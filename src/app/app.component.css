@@ -1,9 +1,16 @@
 .mat-drawer {
-  min-width: 250px;
+  min-width: 200px;
+  width: 250px;
   background-color: #eee;
 }
 
 .menu-button {
   width: 100%;
   text-align: left;
+}
+
+.nexus-version {
+  font-size: 15px;
+  line-height: 24px;
+  margin-right: 30px;
 }

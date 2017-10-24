@@ -23,6 +23,7 @@ import {
 } from '@angular/material';
 
 import { NexusService } from './services/nexus.service';
+import { MacrosService } from './services/macros.service';
 import { LoggedInGuard } from './guards/logged-in.guard';
 
 import { LoginComponent } from './components/login/login.component';
@@ -31,6 +32,7 @@ import { UserListComponent } from './components/users/user-list/user-list.compon
 import { UserComponent } from './components/users/user/user.component';
 import { UserCreateDialogComponent } from './components/users/user-create-dialog/user-create-dialog.component';
 import { AreYouSureDialogComponent } from './components/shared/are-you-sure-dialog/are-you-sure-dialog.component';
+import { NodesComponent } from './components/nodes/nodes.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { AreYouSureDialogComponent } from './components/shared/are-you-sure-dial
     UserListComponent,
     UserComponent,
     UserCreateDialogComponent,
-    AreYouSureDialogComponent
+    AreYouSureDialogComponent,
+    NodesComponent
   ],
   entryComponents: [
     UserCreateDialogComponent,
@@ -68,7 +71,8 @@ import { AreYouSureDialogComponent } from './components/shared/are-you-sure-dial
   ],
   providers: [
     LoggedInGuard,
-    NexusService
+    NexusService,
+    MacrosService
   ],
   bootstrap: [AppComponent]
 })

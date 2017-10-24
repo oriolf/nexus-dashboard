@@ -3,6 +3,11 @@
 		<mat-icon (click)="sidenav.toggle()">menu</mat-icon>
 	</button>
 	<span class="middle-spacer"></span>
+	<div *ngIf="nexus.isLogged()" class="nexus-version">
+		<span>Nexus version: {{ nexus.version() }}</span>
+		<br>
+		<span>Client version: {{ nexus.clientVersion() }}</span>
+	</div>
 	<button mat-icon-button *ngIf="nexus.isLogged()" (click)="logout()">
 		<mat-icon>exit_to_app</mat-icon>
 	</button>

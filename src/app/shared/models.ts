@@ -9,3 +9,13 @@ export class User {
         public Disabled: boolean
     ) { }
 }
+
+export class Node {
+    constructor(
+        public NodeId: string,
+        public Version: string,
+        public Clients: number,
+        public Listening: boolean,
+        public Load: { string: number }
+    ) { }
+}

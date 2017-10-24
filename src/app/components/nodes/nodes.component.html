@@ -1,0 +1,37 @@
+<mat-card>
+  <mat-card-content>
+    <mat-table #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="node">
+        <mat-header-cell *matHeaderCellDef> Node </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.NodeId }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="version">
+        <mat-header-cell *matHeaderCellDef> Version </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.Version }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="clients">
+        <mat-header-cell *matHeaderCellDef> Clients </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.Clients }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="listening">
+        <mat-header-cell *matHeaderCellDef> Listening </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-icon *ngIf="row.Listening">check_circle</mat-icon>
+          <mat-icon *ngIf="!row.Listening">cancel</mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="load">
+        <mat-header-cell *matHeaderCellDef style="flex: 2;"> Load </mat-header-cell>
+        <mat-cell *matCellDef="let row" style="flex: 2;"> {{ formatLoad(row.Load) }} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>

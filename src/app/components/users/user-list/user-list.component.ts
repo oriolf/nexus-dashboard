@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { User } from '../../../shared/models';
 import { NexusService } from '../../../services/nexus.service';
+import { MacrosService } from '../../../services/macros.service';
 
 import { UserCreateDialogComponent } from '../user-create-dialog/user-create-dialog.component';
 import { AreYouSureDialogComponent } from '../../shared/are-you-sure-dialog/are-you-sure-dialog.component';
@@ -26,12 +27,14 @@ export class UserListComponent implements OnInit {
   dataSource: UserDataSource | null;
   triggerUpdateUsers: EventEmitter<any> = new EventEmitter;
   USER_DELETE_TEXT = 'If you accept, the user will be permanently deleted.';
+  DISABLE_TEXT = 'If you accept, the user will be disabled.';
+  ENABLE_TEXT = 'If you accept, the user will be enabled.';
 
   constructor(
     private nexus: NexusService,
+    private macros: MacrosService,
     public snackBar: MatSnackBar,
-    public UserCreateDialog: MatDialog,
-    public AreYouSureDialog: MatDialog
+    public UserCreateDialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -66,17 +69,21 @@ export class UserListComponent implements OnInit {
   }
 
   userDelete(username: string) {
-    let dialogRef = this.AreYouSureDialog.open(AreYouSureDialogComponent, { width: '400px', data: { text: this.USER_DELETE_TEXT } })
+    this.macros.areYouSureAction(
+      this.USER_DELETE_TEXT, 'Error deleting user: ',
+      () => this.nexus.userDelete(username),
+      () => this.updateLength.emit(null)
+    );
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.nexus.userDelete(username).then(() => {
-          this.updateLength.emit(null);
-        }).catch(err => {
-          this.snackBar.open('Error deleting user: ' + err.message, 'OK');
-        });
-      }
-    })
+  setDisabled(username: string, disable: boolean) {
+    let text = this.DISABLE_TEXT;
+    if (!disable) { text = this.ENABLE_TEXT; }
+    this.macros.areYouSureAction(
+      text, 'Error changing user disabled state: ',
+      () => this.nexus.userSetDisabled(username, disable),
+      () => this.updateLength.emit(null)
+    );
   }
 
 }

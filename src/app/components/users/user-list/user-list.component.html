@@ -34,8 +34,10 @@
       <ng-container matColumnDef="enabled">
         <mat-header-cell *matHeaderCellDef> Enabled </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <mat-icon *ngIf="!row.Disabled">check_circle</mat-icon>
-          <mat-icon *ngIf="row.Disabled">cancel</mat-icon>
+          <button mat-icon-button (click)="setDisabled(row.User, !row.Disabled)">
+            <mat-icon *ngIf="!row.Disabled">check_circle</mat-icon>
+            <mat-icon *ngIf="row.Disabled">cancel</mat-icon>
+          </button>
         </mat-cell>
       </ng-container>
 

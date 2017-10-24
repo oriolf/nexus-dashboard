@@ -3,13 +3,15 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../environments/environment';
-import { User } from '../shared/models';
+import { User, Node } from '../shared/models';
 
 declare var nexus: any;
 
 @Injectable()
 export class NexusService {
   client: any;
+  clientversion: string;
+  nexusversion: string;
   logged: boolean = false;
 
   constructor(
@@ -17,6 +19,9 @@ export class NexusService {
   ) { }
 
   isLogged() { return this.logged; }
+
+  clientVersion() { return this.clientversion; }
+  version() { return this.nexusversion; }
 
   // TODO handle errors correctly
   userListObservable(params: Observable<any>): Observable<User[]> {
@@ -27,6 +32,16 @@ export class NexusService {
         });
       });
     });
+  }
+
+  nodesObservable(): Observable<Node[]> {
+    return new Observable(observer => {
+      this.nodeList(0, 0).then(res => observer.next(res));
+    });
+  }
+
+  nodeList(limit: number, skip: number): Promise<any> {
+    return this.genericNexusFunction('nodeList', [limit, skip]);
   }
 
   userTotalObservable(prefix: Observable<string>): Observable<number> {
@@ -49,6 +64,10 @@ export class NexusService {
     return this.genericNexusFunction('userDelete', [username]);
   }
 
+  userSetDisabled(username: string, disabled: boolean): Promise<any> {
+    return this.genericNexusFunction('userSetDisabled', [username, disabled]);
+  }
+
   userList(prefix: string, limit: number, skip: number): Promise<User[]> {
     return this.genericNexusFunction('userList', [prefix, limit, skip]);
   }
@@ -58,7 +77,7 @@ export class NexusService {
   }
 
   logout() {
-    this.client.close();
+    this.client.then(client => client.close());
     this.client = null;
     location.reload();
   }
@@ -75,6 +94,8 @@ export class NexusService {
           client.exec('sys.login', { 'user': user, 'pass': password }, (response, error) => {
             if (!error) {
               that.logged = true;
+              that.clientversion = client.version();
+              that.nexusversion = client.nexusVersion();
               res(client);
               that.router.navigate(['/users']);
             } else {
