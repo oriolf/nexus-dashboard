@@ -1,3 +1,119 @@
-<p>
-  user works!
-</p>
+<mat-card *ngIf="user">
+  <mat-card-header>
+    <mat-card-title *ngIf="user">
+      <h2 mat-subheader>{{ user.User }}</h2>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content *ngIf="user && !errMessage">
+    <div class="mat-table" role="grid">
+      <div class="mat-row" role="row">
+        <div class="mat-header-cell cdk-column-username mat-column-username" role="columnheader" style="flex: 4;">
+          Username
+        </div>
+        <div class="mat-header-cell cdk-column-maxSessions mat-column-maxSessions" role="columnheader">
+          Max Sessions
+        </div>
+        <div class="mat-header-cell cdk-column-maxSessions mat-column-maxSessions" role="columnheader">
+          Actual Sessions
+        </div>
+        <div class="mat-header-cell cdk-column-enabled mat-column-enabled" role="columnheader">
+          Enabled
+        </div>
+      </div>
+
+      <div class="mat-row" role="row">
+        <div class="mat-cell cdk-column-username mat-column-username" role="gridcell" style="flex: 4;">
+          root
+        </div>
+        <div class="mat-cell cdk-column-maxSessions mat-column-maxSessions" role="gridcell">
+          50
+        </div>
+        <div class="mat-cell cdk-column-maxSessions mat-column-maxSessions" role="gridcell">
+          0
+        </div>
+        <div class="mat-cell cdk-column-enabled mat-column-enabled" role="gridcell">
+        </div>
+      </div>
+    </div>
+
+
+    <mat-tab-group>
+      <mat-tab label="Tags">Tags</mat-tab>
+      <mat-tab label="Expanded tags">Expanded tags (tags + template tags)</mat-tab>
+
+      <mat-tab label="Templates">
+        <mat-list>
+          <mat-list-item *ngFor="let template of user.Templates">
+            <button mat-icon-button (click)="deleteTemplate(template)">
+              <mat-icon mat-list-icon>delete</mat-icon>
+            </button>
+            <p>{{ template }}</p>
+          </mat-list-item>
+          <mat-list-item style="margin-top: 20px;">
+            <form [formGroup]="formTemplate">
+              <button mat-icon-button [disabled]="!formTemplate.valid" (click)="addTemplate()">
+                <mat-icon mat-list-icon>add</mat-icon>
+              </button>
+
+              <mat-form-field>
+                <input matInput placeholder="New template" formControlName="template">
+              </mat-form-field>
+            </form>
+          </mat-list-item>
+        </mat-list>
+      </mat-tab>
+
+      <mat-tab label="White list">
+        <mat-list>
+          <mat-list-item *ngFor="let ip of user.Whitelist">
+            <button mat-icon-button (click)="deleteWhitelist(ip)">
+              <mat-icon mat-list-icon>delete</mat-icon>
+            </button>
+            <p>{{ ip }}</p>
+          </mat-list-item>
+          <mat-list-item style="margin-top: 20px;">
+            <form [formGroup]="formWhitelist">
+              <button mat-icon-button [disabled]="!formWhitelist.valid" (click)="addWhitelist()">
+                <mat-icon mat-list-icon>add</mat-icon>
+              </button>
+
+              <mat-form-field>
+                <input matInput placeholder="New white list IP" formControlName="ip">
+              </mat-form-field>
+            </form>
+          </mat-list-item>
+        </mat-list>
+      </mat-tab>
+
+      <mat-tab label="Black list">
+        <mat-list>
+          <mat-list-item *ngFor="let ip of user.Blacklist">
+            <button mat-icon-button (click)="deleteBlacklist(ip)">
+              <mat-icon mat-list-icon>delete</mat-icon>
+            </button>
+            <p>{{ ip }}</p>
+          </mat-list-item>
+          <mat-list-item style="margin-top: 20px;">
+            <form [formGroup]="formBlacklist">
+              <button mat-icon-button [disabled]="!formBlacklist.valid" (click)="addBlacklist()">
+                <mat-icon mat-list-icon>add</mat-icon>
+              </button>
+
+              <mat-form-field>
+                <input matInput placeholder="New black list IP" formControlName="ip">
+              </mat-form-field>
+            </form>
+          </mat-list-item>
+        </mat-list>
+      </mat-tab>
+
+      <mat-tab label="Edit">Edit</mat-tab>
+    </mat-tab-group>
+
+  </mat-card-content>
+
+  <mat-card-content *ngIf="!user || errMessage">
+    {{ errMessage }}
+  </mat-card-content>
+</mat-card>

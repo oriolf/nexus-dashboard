@@ -33,4 +33,16 @@ export class MacrosService {
     })
   }
 
+  directAction(
+    errorText: string,
+    action: any,
+    thenAction: any
+  ) {
+    action().then(() => {
+      thenAction();
+    }).catch(err => {
+      this.snackBar.open(errorText + err.message, 'OK');
+    });
+  }
+
 }

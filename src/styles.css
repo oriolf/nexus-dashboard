@@ -43,3 +43,11 @@ html, body {
   display: flex !important;
   justify-content: center;
 }
+
+.mat-tab-body-content {
+  overflow-y: hidden !important;
+}
+
+.mat-tab-body.mat-tab-body-active {
+  overflow-y: hidden !important;
+}

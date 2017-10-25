@@ -44,6 +44,30 @@ export class NexusService {
     return this.genericNexusFunction('nodeList', [limit, skip]);
   }
 
+  UserAddTemplate(user: string, template: string): Promise<any> {
+    return this.genericNexusFunction('userAddTemplate', [user, template]);
+  }
+
+  UserDelTemplate(user: string, template: string): Promise<any> {
+    return this.genericNexusFunction('userDelTemplate', [user, template]);
+  }
+
+  UserAddWhitelist(user: string, ip: string): Promise<any> {
+    return this.genericNexusFunction('userAddWhitelist', [user, ip]);
+  }
+
+  UserDelWhitelist(user: string, ip: string): Promise<any> {
+    return this.genericNexusFunction('userDelWhitelist', [user, ip]);
+  }
+
+  UserAddBlacklist(user: string, ip: string): Promise<any> {
+    return this.genericNexusFunction('userAddBlacklist', [user, ip]);
+  }
+
+  UserDelBlacklist(user: string, ip: string): Promise<any> {
+    return this.genericNexusFunction('userDelBlacklist', [user, ip]);
+  }
+
   userTotalObservable(prefix: Observable<string>): Observable<number> {
     return new Observable(observer => {
       prefix.subscribe(p => {

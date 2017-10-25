@@ -19,7 +19,8 @@ import {
   MatTableModule,
   MatPaginatorModule,
   MatDialogModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatTabsModule
 } from '@angular/material';
 
 import { NexusService } from './services/nexus.service';
@@ -67,7 +68,8 @@ import { NodesComponent } from './components/nodes/nodes.component';
     MatTableModule,
     MatPaginatorModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTabsModule
   ],
   providers: [
     LoggedInGuard,
