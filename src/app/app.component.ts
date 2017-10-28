@@ -14,6 +14,7 @@ export class AppComponent {
       name: 'Usuarios',
       links: [
         { name: 'Usuarios', route: '/users', icon: 'people' },
+        { name: 'Sessions', route: '/sessions', icon: 'person_pin' },
       ]
     },
     {

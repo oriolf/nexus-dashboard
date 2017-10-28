@@ -35,6 +35,7 @@ import { UserCreateDialogComponent } from './components/users/user-create-dialog
 import { AreYouSureDialogComponent } from './components/shared/are-you-sure-dialog/are-you-sure-dialog.component';
 import { NodesComponent } from './components/nodes/nodes.component';
 import { KeysPipe } from './shared/keys.pipe';
+import { SessionListComponent } from './components/users/session-list/session-list.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { KeysPipe } from './shared/keys.pipe';
     UserCreateDialogComponent,
     AreYouSureDialogComponent,
     NodesComponent,
-    KeysPipe
+    KeysPipe,
+    SessionListComponent
   ],
   entryComponents: [
     UserCreateDialogComponent,

@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserListComponent } from './components/users/user-list/user-list.component';
 import { UserComponent } from './components/users/user/user.component';
+import { SessionListComponent } from './components/users/session-list/session-list.component';
 import { NodesComponent } from './components/nodes/nodes.component';
 
 var appRoutes: Routes = [
@@ -15,6 +16,7 @@ var appRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [LoggedInGuard] },
     { path: 'users', component: UserListComponent, canActivate: [LoggedInGuard] },
     { path: 'users/:name', component: UserComponent, canActivate: [LoggedInGuard] },
+    { path: 'sessions', component: SessionListComponent, canActivate: [LoggedInGuard] },
     { path: 'nodes', component: NodesComponent, canActivate: [LoggedInGuard] },
     { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];

@@ -1,0 +1,54 @@
+<mat-card>
+  <mat-card-content>
+    <div class="example-header">
+      <mat-form-field floatPlaceholder="never">
+        <input matInput placeholder="Filter users" [formControl]="prefix">
+      </mat-form-field>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef style="flex: 0.75;"></mat-header-cell>
+
+        <mat-cell *matCellDef="let row" style="flex: 0.75;">
+          <button mat-icon-button (click)="sessionKick(row.ConnID)">
+            <mat-icon>eject</mat-icon>
+          </button>
+          <button mat-icon-button (click)="sessionReload(row.ConnID)">
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef style="flex: 2;"> Username </mat-header-cell>
+        <mat-cell *matCellDef="let row" style="flex: 2;"> {{ row.User }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.ConnID }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="remoteAddress">
+        <mat-header-cell *matHeaderCellDef> Remote address </mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.RemoteAddress }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="protocol">
+        <mat-header-cell *matHeaderCellDef style="flex: 0.5;"> Protocol </mat-header-cell>
+        <mat-cell *matCellDef="let row" style="flex: 0.5;">{{ row.Protocol }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="creationTime">
+        <mat-header-cell *matHeaderCellDef> Creation time </mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ formatTime(row.CreationTime) }}</mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+  </mat-card-content>
+</mat-card>

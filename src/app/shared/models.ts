@@ -20,11 +20,21 @@ export class UserSessions {
 
 export class SessionInfo {
     constructor(
-        Id: string,
-        NodeId: string,
-        RemoteAddress: string,
-        Protocol: string,
-        CreationTime: string
+        public Id: string,
+        public NodeId: string,
+        public RemoteAddress: string,
+        public Protocol: string,
+        public CreationTime: string
+    ) { }
+}
+
+export class Session {
+    constructor(
+        public User: string,
+        public ConnID: string,
+        public RemoteAddress: string,
+        public Protocol: string,
+        public CreationTime: string
     ) { }
 }
 

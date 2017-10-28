@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../environments/environment';
-import { User, UserSessions, Node } from '../shared/models';
+import { User, UserSessions, Node, Session } from '../shared/models';
 
 declare var nexus: any;
 
@@ -32,6 +32,40 @@ export class NexusService {
         });
       });
     });
+  }
+
+  sessionsObservable(changes: Observable<any>): Observable<Session[]> {
+    return new Observable(observer => {
+      changes.subscribe(p => {
+        this.sessionList(p.prefix, 0, 0).then(res => {
+          observer.next(this.expandSessions(res));
+        });
+      });
+    });
+  }
+
+  expandSessions(userSessions: UserSessions[]): Session[] {
+    let sessions: Session[] = [];
+    for (let userSession of userSessions) {
+      for (let session of userSession.Sessions) {
+        sessions.push(new Session(
+          userSession.User,
+          session.Id,
+          session.RemoteAddress,
+          session.Protocol,
+          session.CreationTime
+        ));
+      }
+    }
+    return sessions;
+  }
+
+  sessionKick(connID: string): Promise<any> {
+    return this.genericNexusFunction('sessionKick', [connID]);
+  }
+
+  sessionReload(connID: string): Promise<any> {
+    return this.genericNexusFunction('sessionReload', [connID]);
   }
 
   nodesObservable(): Observable<Node[]> {

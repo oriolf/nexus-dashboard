@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog, MatSnackBar, MatPaginator } from '@angular/material';
+import { MatDialog, MatPaginator } from '@angular/material';
 
 import { ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
@@ -33,7 +33,6 @@ export class UserListComponent implements OnInit {
   constructor(
     private nexus: NexusService,
     private macros: MacrosService,
-    public snackBar: MatSnackBar,
     public UserCreateDialog: MatDialog
   ) { }
 
