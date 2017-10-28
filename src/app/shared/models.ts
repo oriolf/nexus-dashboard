@@ -10,6 +10,24 @@ export class User {
     ) { }
 }
 
+export class UserSessions {
+    constructor(
+        public User: string,
+        public Sessions: SessionInfo[],
+        public N: number
+    ) { }
+}
+
+export class SessionInfo {
+    constructor(
+        Id: string,
+        NodeId: string,
+        RemoteAddress: string,
+        Protocol: string,
+        CreationTime: string
+    ) { }
+}
+
 export class Node {
     constructor(
         public NodeId: string,

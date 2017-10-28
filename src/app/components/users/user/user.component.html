@@ -1,11 +1,7 @@
 <mat-card *ngIf="user">
-  <mat-card-header>
-    <mat-card-title *ngIf="user">
-      <h2 mat-subheader>{{ user.User }}</h2>
-    </mat-card-title>
-  </mat-card-header>
+  <h2 style="margin: 0;">User: {{ user.User }}</h2>
 
-  <mat-card-content *ngIf="user && !errMessage">
+  <mat-card-content *ngIf="user">
     <div class="mat-table" role="grid">
       <div class="mat-row" role="row">
         <div class="mat-header-cell cdk-column-username mat-column-username" role="columnheader" style="flex: 4;">
@@ -24,27 +20,56 @@
 
       <div class="mat-row" role="row">
         <div class="mat-cell cdk-column-username mat-column-username" role="gridcell" style="flex: 4;">
-          root
+          {{ user.User }}
         </div>
         <div class="mat-cell cdk-column-maxSessions mat-column-maxSessions" role="gridcell">
-          50
+          {{ user.MaxSessions }}
         </div>
         <div class="mat-cell cdk-column-maxSessions mat-column-maxSessions" role="gridcell">
-          0
+          <span *ngIf="sessions">{{ sessions.N }}</span>
+          <span *ngIf="!sessions">0</span>
         </div>
         <div class="mat-cell cdk-column-enabled mat-column-enabled" role="gridcell">
+          <button mat-icon-button (click)="toggleDisabled()">
+            <mat-icon *ngIf="!user.Disabled">check_circle</mat-icon>
+            <mat-icon *ngIf="user.Disabled">cancel</mat-icon>
+          </button>
         </div>
       </div>
     </div>
 
 
     <mat-tab-group>
-      <mat-tab label="Tags">Tags</mat-tab>
-      <mat-tab label="Expanded tags">Expanded tags (tags + template tags)</mat-tab>
+      <mat-tab label="Tags">
+        <div style="display: flex; flex-wrap: wrap;">
+          <pre style="flex: 1;">{{ this.tags }}</pre>
+          <div style="flex: 1;">
+            <mat-list>
+              <div *ngFor="let key of user.Tags | keys">
+                <h2 mat-subheader>Tags on path: "{{ key }}"</h2>
+                <mat-list-item *ngFor="let value of user.Tags[key] | keys">
+                  <button mat-icon-button (click)="deleteTag(key, value)">
+                    <mat-icon mat-list-icon>delete</mat-icon>
+                  </button>
+
+                  <p>{{ value }}: {{ format(user.Tags[key][value]) }}</p>
+                </mat-list-item>
+              </div>
+            </mat-list>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Expanded tags">
+        <pre>{{ this.effectivetags }}</pre>
+      </mat-tab>
 
       <mat-tab label="Templates">
         <mat-list>
           <mat-list-item *ngFor="let template of user.Templates">
+            <button mat-icon-button [routerLink]="'/users/' + template">
+              <mat-icon mat-list-icon>visibility</mat-icon>
+            </button>
             <button mat-icon-button (click)="deleteTemplate(template)">
               <mat-icon mat-list-icon>delete</mat-icon>
             </button>
@@ -112,8 +137,8 @@
     </mat-tab-group>
 
   </mat-card-content>
+</mat-card>
 
-  <mat-card-content *ngIf="!user || errMessage">
-    {{ errMessage }}
-  </mat-card-content>
+<mat-card *ngIf="!user">
+  <p>User does not exist</p>
 </mat-card>

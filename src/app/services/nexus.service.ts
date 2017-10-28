@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../environments/environment';
-import { User, Node } from '../shared/models';
+import { User, UserSessions, Node } from '../shared/models';
 
 declare var nexus: any;
 
@@ -68,6 +68,14 @@ export class NexusService {
     return this.genericNexusFunction('userDelBlacklist', [user, ip]);
   }
 
+  UserGetTags(user: string): Promise<any> {
+    return this.genericNexusFunction('userGetTags', [user]);
+  }
+
+  userDelTags(user: string, path: string, tags: string[]): Promise<any> {
+    return this.genericNexusFunction('userDelTags', [user, path, tags]);
+  }
+
   userTotalObservable(prefix: Observable<string>): Observable<number> {
     return new Observable(observer => {
       prefix.subscribe(p => {
@@ -94,6 +102,10 @@ export class NexusService {
 
   userList(prefix: string, limit: number, skip: number): Promise<User[]> {
     return this.genericNexusFunction('userList', [prefix, limit, skip]);
+  }
+
+  sessionList(prefix: string, limit: number, skip: number): Promise<UserSessions[]> {
+    return this.genericNexusFunction('sessionList', [prefix, limit, skip]);
   }
 
   taskPush(path: string, params: any, timeout: number): Promise<any> {

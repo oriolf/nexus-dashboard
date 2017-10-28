@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 
 import { NexusService } from '../../../services/nexus.service';
 import { MacrosService } from '../../../services/macros.service';
-import { User } from '../../../shared/models';
+import { User, UserSessions } from '../../../shared/models';
 
 @Component({
   selector: 'app-user',
@@ -14,6 +14,9 @@ import { User } from '../../../shared/models';
 export class UserComponent implements OnInit {
   username: string;
   user: User;
+  sessions: UserSessions;
+  tags: string;
+  effectivetags: string;
   errMessage: string = '';
   formTemplate: FormGroup;
   formWhitelist: FormGroup;
@@ -41,12 +44,25 @@ export class UserComponent implements OnInit {
     this.nexus.userList(this.username, 0, 0).then(res => {
       try {
         this.user = res.filter(x => x.User === this.username)[0];
+        this.tags = JSON.stringify(this.user.Tags, null, 2);
       } catch (e) {
         this.errMessage = 'User does not exist';
       }
     });
+
+    this.nexus.UserGetTags(this.username).then(res => {
+      this.effectivetags = JSON.stringify(res.tags, null, 2);
+    });
+
+    this.nexus.sessionList(this.username, 0, 0).then(res => {
+      try {
+        this.sessions = res.filter(x => x.User === this.username)[0];
+      } catch (e) { }
+    })
   }
 
+  deleteTag(path: string, key: string) { this.genericAction('Error deleting tag: ', () => this.nexus.userDelTags(this.user.User, path, [key])); }
+  toggleDisabled() { this.genericAction('Error changing user disabled state: ', () => this.nexus.userSetDisabled(this.user.User, !this.user.Disabled)); }
   addTemplate() { this.genericAction('Could not add template: ', () => this.nexus.UserAddTemplate(this.username, this.formTemplate.value['template'])); }
   deleteTemplate(template: string) { this.genericAction('Could not delete template: ', () => this.nexus.UserDelTemplate(this.username, template)); }
   addWhitelist() { this.genericAction('Could not add white list ip: ', () => this.nexus.UserAddWhitelist(this.username, this.formWhitelist.value['ip'])); }
@@ -61,5 +77,7 @@ export class UserComponent implements OnInit {
       () => this.reloadUser()
     );
   }
+
+  format(value: any) { return JSON.stringify(value); }
 
 }
