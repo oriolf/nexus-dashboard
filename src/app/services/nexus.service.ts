@@ -110,6 +110,14 @@ export class NexusService {
     return this.genericNexusFunction('userDelTags', [user, path, tags]);
   }
 
+  userSetPass(user: string, password: string): Promise<any> {
+    return this.genericNexusFunction('userSetPass', [user, password]);
+  }
+
+  userSetMaxSessions(user: string, maxSessions: number): Promise<any> {
+    return this.genericNexusFunction('userSetMaxSessions', [user, maxSessions]);
+  }
+
   userTotalObservable(prefix: Observable<string>): Observable<number> {
     return new Observable(observer => {
       prefix.subscribe(p => {

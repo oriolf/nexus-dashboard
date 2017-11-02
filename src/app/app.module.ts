@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { routing } from './app.routes';
 import { AppComponent } from './app.component';
 
+import { JsonSchemaFormModule } from 'angular2-json-schema-form';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { 
   MatToolbarModule,
@@ -20,7 +22,8 @@ import {
   MatPaginatorModule,
   MatDialogModule,
   MatSnackBarModule,
-  MatTabsModule
+  MatTabsModule,
+  MatSelectModule
 } from '@angular/material';
 
 import { NexusService } from './services/nexus.service';
@@ -60,6 +63,8 @@ import { SessionListComponent } from './components/users/session-list/session-li
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    JsonSchemaFormModule,
+    FlexLayoutModule,
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
@@ -73,7 +78,8 @@ import { SessionListComponent } from './components/users/session-list/session-li
     MatPaginatorModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSelectModule
   ],
   providers: [
     LoggedInGuard,

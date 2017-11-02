@@ -13,6 +13,7 @@ import { User, UserSessions } from '../../../shared/models';
 })
 export class UserComponent implements OnInit {
   username: string;
+  reloading: boolean = false;
   user: User;
   sessions: UserSessions;
   tags: string;
@@ -21,6 +22,19 @@ export class UserComponent implements OnInit {
   formTemplate: FormGroup;
   formWhitelist: FormGroup;
   formBlacklist: FormGroup;
+  editPasswordSchema: any = {
+    properties: {
+      password: { 'type': 'string', widget: 'password' },
+      confirm_password: { 'type': 'string', widget: 'password' }
+    },
+    required: ['password', 'confirm_password']
+  };
+  editMaxsessionsSchema: any = {
+    properties: {
+      maxSessions: { type: 'number' },
+    },
+    required: ['maxSessions']
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -41,6 +55,7 @@ export class UserComponent implements OnInit {
 
   // TODO proper error handling
   reloadUser() {
+    this.reloading = true;
     this.nexus.userList(this.username, 0, 0).then(res => {
       try {
         this.user = res.filter(x => x.User === this.username)[0];
@@ -48,6 +63,7 @@ export class UserComponent implements OnInit {
       } catch (e) {
         this.errMessage = 'User does not exist';
       }
+      this.reloading = false;
     });
 
     this.nexus.UserGetTags(this.username).then(res => {
@@ -69,6 +85,8 @@ export class UserComponent implements OnInit {
   deleteWhitelist(ip: string) { this.genericAction('Could not delete white list ip: ', () => this.nexus.UserDelWhitelist(this.username, ip)); }
   addBlacklist() { this.genericAction('Could not add black list ip: ', () => this.nexus.UserAddBlacklist(this.username, this.formBlacklist.value['ip'])); }
   deleteBlacklist(ip: string) { this.genericAction('Could not delete black list ip: ', () => this.nexus.UserDelBlacklist(this.username, ip)); }
+  editPassword(event) { this.genericAction('Could not change user password: ', () => this.nexus.userSetPass(this.username, event.password)); }
+  editMaxsessions(event) { this.genericAction('Could not change max sessions: ', () => this.nexus.userSetMaxSessions(this.username, event.maxSessions)); }
 
   genericAction(text: string, action: any) {
     this.macros.directAction(

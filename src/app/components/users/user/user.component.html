@@ -133,7 +133,18 @@
         </mat-list>
       </mat-tab>
 
-      <mat-tab label="Edit">Edit</mat-tab>
+      <mat-tab label="Edit">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between;" *ngIf="!reloading">
+          <div style="flex: 1; padding: 10px;">
+            <h3>Edit password</h3>
+            <json-schema-form [schema]="editPasswordSchema" (onSubmit)="editPassword($event)"></json-schema-form>
+          </div>
+          <div style="flex: 1; padding: 10px;">
+            <h3>Edit maximum sessions</h3>
+            <json-schema-form [schema]="editMaxsessionsSchema" (onSubmit)="editMaxsessions($event)"></json-schema-form>
+          </div>
+        </div>
+      </mat-tab>
     </mat-tab-group>
 
   </mat-card-content>
