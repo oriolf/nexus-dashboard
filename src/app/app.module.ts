@@ -31,14 +31,19 @@ import { MacrosService } from './services/macros.service';
 import { LoggedInGuard } from './guards/logged-in.guard';
 
 import { LoginComponent } from './components/login/login.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardComponent } from './components/general/dashboard/dashboard.component';
 import { UserListComponent } from './components/users/user-list/user-list.component';
 import { UserComponent } from './components/users/user/user.component';
 import { UserCreateDialogComponent } from './components/users/user-create-dialog/user-create-dialog.component';
 import { AreYouSureDialogComponent } from './components/shared/are-you-sure-dialog/are-you-sure-dialog.component';
-import { NodesComponent } from './components/nodes/nodes.component';
+import { NodesComponent } from './components/general/nodes/nodes.component';
 import { KeysPipe } from './shared/keys.pipe';
 import { SessionListComponent } from './components/users/session-list/session-list.component';
+import { TopicsComponent } from './components/general/topics/topics.component';
+import { SyncComponent } from './components/general/sync/sync.component';
+import { ServicesComponent } from './components/services/services/services.component';
+import { PullsComponent } from './components/services/pulls/pulls.component';
+import { PushComponent } from './components/services/push/push.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +56,12 @@ import { SessionListComponent } from './components/users/session-list/session-li
     AreYouSureDialogComponent,
     NodesComponent,
     KeysPipe,
-    SessionListComponent
+    SessionListComponent,
+    TopicsComponent,
+    SyncComponent,
+    ServicesComponent,
+    PullsComponent,
+    PushComponent
   ],
   entryComponents: [
     UserCreateDialogComponent,

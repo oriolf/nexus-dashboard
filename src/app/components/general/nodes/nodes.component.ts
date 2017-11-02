@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 
-import { Node } from '../../shared/models';
-import { NexusService } from '../../services/nexus.service';
+import { Node } from '../../../shared/models';
+import { NexusService } from '../../../services/nexus.service';
 
 @Component({
   selector: 'app-nodes',

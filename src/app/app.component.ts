@@ -11,6 +11,15 @@ export class AppComponent {
   title = 'app';
   linkGroups = [
     {
+      name: 'General',
+      links: [
+        { name: 'Dasboard', route: '/dashboard', icon: 'dashboard' },
+        { name: 'Nodes', route: '/nodes', icon: 'cloud' },
+        { name: 'Topics', route: '/topics', icon: 'format_quote' },
+        { name: 'Sync', route: '/sync', icon: 'lock'}
+      ]
+    },
+    {
       name: 'Usuarios',
       links: [
         { name: 'Usuarios', route: '/users', icon: 'people' },
@@ -18,10 +27,11 @@ export class AppComponent {
       ]
     },
     {
-      name: 'General',
+      name: 'Services',
       links: [
-        { name: 'Nodes', route: '/nodes', icon: 'cloud' },
-        { name: 'Tareas 1', route: '/dashboard', icon: 'build' }
+        { name: 'Pulls', route: '/pulls', icon: 'assignment' },
+        { name: 'Push', route: '/push', icon: 'send' },
+        { name: 'Services', route: '/services', icon: 'explore' }
       ]
     }
   ];
