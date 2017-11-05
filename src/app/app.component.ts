@@ -37,7 +37,7 @@ export class AppComponent {
   ];
 
   constructor(
-    private nexus: NexusService
+    public nexus: NexusService
   ) { }
 
   logout() { this.nexus.logout(); }
