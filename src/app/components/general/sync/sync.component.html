@@ -1,3 +1,33 @@
-<p>
-  sync works!
-</p>
+<mat-card>
+  <mat-card-content>
+    <mat-table #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Unlock </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button (click)="unlock(row)" *ngIf="!row.lock">
+            <mat-icon>lock_open</mat-icon>
+          </button>
+          <button mat-icon-button (click)="lock()" *ngIf="row.lock">
+            <mat-icon>lock_outline</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef style="flex: 3;"> Name </mat-header-cell>
+        <mat-cell *matCellDef="let row" style="flex: 3;">
+          <span *ngIf="!row.lock">{{ row }}</span>
+          <span *ngIf="row.lock">
+            <mat-form-field floatPlaceholder="never">
+              <input matInput placeholder="New lock" [formControl]="newLock">
+            </mat-form-field>
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>

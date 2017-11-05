@@ -68,6 +68,14 @@ export class NexusService {
     return this.genericNexusFunction('sessionReload', [connID]);
   }
 
+  lock(name: string): Promise<any> {
+    return this.genericNexusFunction('lock', [name]);
+  }
+
+  unlock(name: string): Promise<any> {
+    return this.genericNexusFunction('unlock', [name]);
+  }
+
   nodesObservable(): Observable<Node[]> {
     return new Observable(observer => {
       this.nodeList(0, 0).then(res => observer.next(res));
