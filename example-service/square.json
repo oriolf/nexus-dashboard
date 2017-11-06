@@ -1,0 +1,31 @@
+{
+    "input": {
+        "title": "Number to square",
+        "type": "object",
+        "properties": {
+            "n": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1000
+            }
+        }
+    },
+    "result": {
+        "type": "number"
+    },
+    "error": {
+        "type": "object",
+        "properties": {
+            "code": {"type": "integer"},
+            "message": {"type": "string"},
+            "data": {"type": "object"}
+        },
+        "required": ["code", "message"]
+    },
+    "pacts": [
+        { "input": { "n": 0 }, "output":  0 },
+        { "input": { "n": 1 }, "output":  1 },
+        { "input": { "n": 5 }, "output":  25 },
+        { "input": { "n": 13 }, "output": 169 }
+    ]
+}
