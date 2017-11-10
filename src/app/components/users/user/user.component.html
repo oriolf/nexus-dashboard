@@ -60,6 +60,26 @@
         </div>
       </mat-tab>
 
+      <mat-tab label="Add tags">
+        <div style="margin-top: 20px;">
+          <json-editor [(ngModel)]="tagValue" [config]="{mode: 'code'}"></json-editor>
+        </div>
+
+        <form [formGroup]="addTagsForm" style="margin-top: 20px; display: flex; justify-content: space-between;">
+          <mat-form-field style="width: 30%;">
+            <input matInput placeholder="Path" formControlName="path">
+          </mat-form-field>
+          <mat-form-field style="width: 30%;">
+            <input matInput placeholder="Tag" formControlName="tag">
+          </mat-form-field>
+          <div style="width: 30%;">
+            <button mat-raised-button [disabled]="!addTagsForm.valid" color="primary" (click)="addTag()">
+              Add tags
+            </button>
+          </div>
+        </form>
+      </mat-tab>
+
       <mat-tab label="Expanded tags">
         <pre>{{ this.effectivetags }}</pre>
       </mat-tab>
@@ -136,6 +156,8 @@
       <mat-tab label="Edit">
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between;" *ngIf="!reloading">
           <div style="flex: 1; padding: 10px;">
+            <h3>Try password</h3>
+            <json-schema-form [schema]="tryPasswordSchema" (onSubmit)="tryPassword($event)"></json-schema-form>
             <h3>Edit password</h3>
             <json-schema-form [schema]="editPasswordSchema" (onSubmit)="editPassword($event)"></json-schema-form>
           </div>

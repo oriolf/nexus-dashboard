@@ -22,6 +22,13 @@ export class UserComponent implements OnInit {
   formTemplate: FormGroup;
   formWhitelist: FormGroup;
   formBlacklist: FormGroup;
+  addTagsForm: FormGroup;
+  tryPasswordSchema: any = {
+    properties: {
+      password: { type: 'string', widget: 'password' }
+    },
+    required: ['password']
+  };
   editPasswordSchema: any = {
     properties: {
       password: { 'type': 'string', widget: 'password' },
@@ -34,7 +41,11 @@ export class UserComponent implements OnInit {
       maxSessions: { type: 'number' },
     },
     required: ['maxSessions']
-  }
+  };
+  tagValue = {
+    a: [1, 2, 3],
+    b: "asd"
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -47,6 +58,10 @@ export class UserComponent implements OnInit {
     this.formTemplate = this.fb.group({ template: ['', Validators.required] });
     this.formWhitelist = this.fb.group({ ip: ['', Validators.required] });
     this.formBlacklist = this.fb.group({ ip: ['', Validators.required] });
+    this.addTagsForm = this.fb.group({
+      path: ['', Validators.required],
+      tag: ['', Validators.required]
+    });
     this.route.paramMap.subscribe(params => {
       this.username = params.get('name');
       this.reloadUser();
@@ -87,6 +102,21 @@ export class UserComponent implements OnInit {
   deleteBlacklist(ip: string) { this.genericAction('Could not delete black list ip: ', () => this.nexus.UserDelBlacklist(this.username, ip)); }
   editPassword(event) { this.genericAction('Could not change user password: ', () => this.nexus.userSetPass(this.username, event.password)); }
   editMaxsessions(event) { this.genericAction('Could not change max sessions: ', () => this.nexus.userSetMaxSessions(this.username, event.maxSessions)); }
+  addTag() {
+    let path = this.addTagsForm.get('path').value;
+    let tag = this.addTagsForm.get('tag').value;
+    let tags = {};
+    tags[tag] = this.tagValue;
+    this.genericAction('Could not add tags: ', () => this.nexus.userSetTags(this.username, path, tags)); 
+  }
+  tryPassword(event) {
+    this.macros.directActionWithConfirmation(
+      'Login successful!',
+      'Could not log in: ',
+      () => this.nexus.oneshotLogin(this.username, event.password),
+      () => { }
+    );
+  }
 
   genericAction(text: string, action: any) {
     this.macros.directAction(

@@ -20,9 +20,9 @@ export class AppComponent {
       ]
     },
     {
-      name: 'Usuarios',
+      name: 'Users',
       links: [
-        { name: 'Usuarios', route: '/users', icon: 'people' },
+        { name: 'Users', route: '/users', icon: 'people' },
         { name: 'Sessions', route: '/sessions', icon: 'person_pin' },
       ]
     },

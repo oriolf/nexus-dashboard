@@ -13,7 +13,7 @@ import { NexusService } from '../../../services/nexus.service';
 })
 export class NodesComponent implements OnInit {
   dataSource: NodesDataSource | null;
-  displayedColumns = ['node', 'version', 'clients', 'listening', 'load']
+  displayedColumns = ['node', 'version', 'clients', 'listening', 'load'];
 
   constructor(
     private nexus: NexusService

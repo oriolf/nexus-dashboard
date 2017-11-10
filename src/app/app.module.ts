@@ -6,6 +6,7 @@ import { routing } from './app.routes';
 import { AppComponent } from './app.component';
 
 import { JsonSchemaFormModule } from 'angular2-json-schema-form';
+import { JSONEditorModule } from 'ngx-jsoneditor';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { 
@@ -74,6 +75,7 @@ import { PushComponent } from './components/services/push/push.component';
     FormsModule,
     ReactiveFormsModule,
     JsonSchemaFormModule,
+    JSONEditorModule,
     FlexLayoutModule,
     MatToolbarModule,
     MatIconModule,

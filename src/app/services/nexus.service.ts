@@ -126,6 +126,10 @@ export class NexusService {
     return this.genericNexusFunction('userSetMaxSessions', [user, maxSessions]);
   }
 
+  userSetTags(user: string, path: string, tags: any): Promise<any> {
+    return this.genericNexusFunction('userSetTags', [user, path, tags]);
+  }
+
   userTotalObservable(prefix: Observable<string>): Observable<number> {
     return new Observable(observer => {
       prefix.subscribe(p => {
@@ -168,14 +172,10 @@ export class NexusService {
     location.reload();
   }
 
-  login(user: string, password: string, host?: string) {
-    if (!host) {
-      host = 'ws://localhost:443';
-    }
-
+  login(user: string, password: string) {
     var that = this;
     this.client = new Promise((res, rej) => {
-      nexus.dial(host, function (client, err) {
+      nexus.dial(environment.host, function (client, err) {
         if (!err) {
           client.exec('sys.login', { 'user': user, 'pass': password }, (response, error) => {
             if (!error) {
@@ -197,6 +197,26 @@ export class NexusService {
     });
 
     return this.client;
+  }
+
+  oneshotLogin(user: string, password: string) {
+    return new Promise((res, rej) => {
+      nexus.dial(environment.host, function (client, err) {
+        if (!err) {
+          client.exec('sys.login', { user: user, pass: password }, (response, error) => {
+            if (!error) {
+              client.close();
+              res(null);
+            } else {
+              client.close();
+              rej(error);
+            }
+          });
+        } else {
+          rej(err);
+        }
+      });
+    });
   }
 
   genericNexusFunction(func: string, params: any[]): Promise<any> {

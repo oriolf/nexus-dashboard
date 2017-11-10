@@ -38,7 +38,19 @@ export class MacrosService {
     action: any,
     thenAction: any
   ) {
+    return this.directActionWithConfirmation('', errorText, action, thenAction);
+  }
+
+  directActionWithConfirmation(
+    successText: string,
+    errorText: string,
+    action: any,
+    thenAction: any
+  ) {
     action().then(() => {
+      if (successText) {
+        this.snackBar.open(successText, '', { duration: 5000 });
+      }
       thenAction();
     }).catch(err => {
       this.snackBar.open(errorText + err.message, 'OK');
