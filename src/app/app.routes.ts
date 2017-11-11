@@ -11,7 +11,7 @@ import { SessionListComponent } from './components/users/session-list/session-li
 import { NodesComponent } from './components/general/nodes/nodes.component';
 import { TopicsComponent } from './components/general/topics/topics.component';
 import { SyncComponent } from './components/general/sync/sync.component';
-import { PullsComponent } from './components/services/pulls/pulls.component';
+import { TasksComponent } from './components/services/tasks/tasks.component';
 import { PushComponent } from './components/services/push/push.component';
 import { ServicesComponent } from './components/services/services/services.component';
 
@@ -28,7 +28,7 @@ var appRoutes: Routes = [
     { path: 'users/:name', component: UserComponent, canActivate: [LoggedInGuard] },
     { path: 'sessions', component: SessionListComponent, canActivate: [LoggedInGuard] },
 
-    { path: 'pulls', component: PullsComponent, canActivate: [LoggedInGuard] },
+    { path: 'tasks', component: TasksComponent, canActivate: [LoggedInGuard] },
     { path: 'push', component: PushComponent, canActivate: [LoggedInGuard] },
     { path: 'services', component: ServicesComponent, canActivate: [LoggedInGuard] },
 

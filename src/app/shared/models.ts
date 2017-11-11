@@ -47,3 +47,39 @@ export class Node {
         public Load: { string: number }
     ) { }
 }
+
+export class Task {
+    constructor(
+        public Id: string,
+        public Session: string, // First 16 characters of Id
+        public ID: string,      // Characters from the 16th of Id
+        public Path: string,
+        public Method: string,
+        public User: string,
+        public Stat: string,    // Status
+        public Tses: string,    // Worker
+        public Type: string     // Push or Pull
+    ) { }
+}
+
+export function NewTask(params: any) {
+    if (params.Method === '') {
+        params.Type = 'Pull';
+    } else {
+        params.Type = 'Push';
+    }
+
+    params.Session = params.Id.slice(0, 16);
+    params.ID = params.Id.slice(16);
+    return new Task(
+        params.Id,
+        params.Session,
+        params.ID,
+        params.Path,
+        params.Method,
+        params.User,
+        params.Stat,
+        params.Tses,
+        params.Type
+    );
+}

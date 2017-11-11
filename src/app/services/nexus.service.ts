@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../environments/environment';
-import { User, UserSessions, Node, Session } from '../shared/models';
+import { User, UserSessions, Node, Session, Task, NewTask } from '../shared/models';
 
 declare var nexus: any;
 
@@ -156,6 +156,26 @@ export class NexusService {
 
   userList(prefix: string, limit: number, skip: number): Promise<User[]> {
     return this.genericNexusFunction('userList', [prefix, limit, skip]);
+  }
+
+  // TODO handle errors correctly
+  // TODO unify with userListObservable to reuse the code
+  taskListObservable(params: Observable<any>): Observable<Task[]> {
+    return new Observable(observer => {
+      params.subscribe(p => {
+        this.taskList(p.prefix, p.limit, p.skip).then(res => {
+          observer.next(res);
+        });
+      });
+    });
+  }
+
+  taskTotal(prefix: string): Promise<number> {
+    return this.taskList(prefix, 0, 0).then(res => res.length);
+  }
+
+  taskList(prefix: string, limit: number, skip: number): Promise<Task[]> {
+    return this.genericNexusFunction('taskList', [prefix, limit, skip]).then(res => res.map(t => NewTask(t)));
   }
 
   sessionList(prefix: string, limit: number, skip: number): Promise<UserSessions[]> {

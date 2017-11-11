@@ -1,8 +1,7 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatPaginator } from '@angular/material';
 
-import { ViewChild } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 
@@ -11,7 +10,6 @@ import { NexusService } from '../../../services/nexus.service';
 import { MacrosService } from '../../../services/macros.service';
 
 import { UserCreateDialogComponent } from '../user-create-dialog/user-create-dialog.component';
-import { AreYouSureDialogComponent } from '../../shared/are-you-sure-dialog/are-you-sure-dialog.component';
 
 @Component({
   selector: 'app-user-list',

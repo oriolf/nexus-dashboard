@@ -29,7 +29,7 @@ export class AppComponent {
     {
       name: 'Services',
       links: [
-        { name: 'Pulls', route: '/pulls', icon: 'assignment' },
+        { name: 'Tasks', route: '/tasks', icon: 'assignment' },
         { name: 'Push', route: '/push', icon: 'send' },
         { name: 'Services', route: '/services', icon: 'explore' }
       ]

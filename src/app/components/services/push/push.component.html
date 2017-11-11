@@ -1,3 +1,26 @@
-<p>
-  push works!
-</p>
+<mat-card>
+  <h2>Push</h2>
+  <mat-card-content>
+    <json-editor [(ngModel)]="pushParams" [config]="{mode: 'code'}"></json-editor>
+
+    <form [formGroup]="form" style="margin-top: 20px; display: flex; justify-content: space-between;">
+      <mat-form-field style="width: 40%;">
+        <input matInput placeholder="Path" formControlName="path">
+      </mat-form-field>
+      <div style="width: 40%;">
+        <button mat-raised-button [disabled]="!form.valid" color="primary" (click)="push()">
+          Push
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="result || error">
+  <h2 *ngIf="result">Result</h2>
+  <h2 *ngIf="error">Error</h2>
+  <mat-card-content>
+    <pre *ngIf="result">{{ result }}</pre>
+    <pre *ngIf="error">{{ error }}</pre>
+  </mat-card-content>
+</mat-card>

@@ -43,8 +43,8 @@ import { SessionListComponent } from './components/users/session-list/session-li
 import { TopicsComponent } from './components/general/topics/topics.component';
 import { SyncComponent } from './components/general/sync/sync.component';
 import { ServicesComponent } from './components/services/services/services.component';
-import { PullsComponent } from './components/services/pulls/pulls.component';
 import { PushComponent } from './components/services/push/push.component';
+import { TasksComponent } from './components/services/tasks/tasks.component';
 
 @NgModule({
   declarations: [
@@ -61,8 +61,8 @@ import { PushComponent } from './components/services/push/push.component';
     TopicsComponent,
     SyncComponent,
     ServicesComponent,
-    PullsComponent,
-    PushComponent
+    PushComponent,
+    TasksComponent
   ],
   entryComponents: [
     UserCreateDialogComponent,

@@ -1,0 +1,48 @@
+<mat-card>
+  <mat-card-content>
+    <div class="filter-table-header">
+      <mat-form-field floatPlaceholder="never">
+        <input matInput placeholder="Filter tasks" [formControl]="prefix">
+      </mat-form-field>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="session">
+        <mat-header-cell *matHeaderCellDef style="flex: 2;"> Session </mat-header-cell>
+        <mat-cell *matCellDef="let row" style="flex: 2;"> {{ row.Session }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef style="flex: 2;"> ID </mat-header-cell>
+        <mat-cell *matCellDef="let row" style="flex: 2;"> {{ row.ID }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="path">
+        <mat-header-cell *matHeaderCellDef style="flex: 2;"> Path </mat-header-cell>
+        <mat-cell *matCellDef="let row" style="flex: 2;"> {{ row.Path }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="method">
+        <mat-header-cell *matHeaderCellDef> Method </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.Method }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="user">
+        <mat-header-cell *matHeaderCellDef style="flex: 2;"> User </mat-header-cell>
+        <mat-cell *matCellDef="let row" style="flex: 2;"> {{ row.User }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.Stat }} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator #paginator [length]="0" [pageIndex]="0" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+    </mat-paginator>
+  </mat-card-content>
+</mat-card>

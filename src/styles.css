@@ -51,3 +51,12 @@ html, body {
 .mat-tab-body.mat-tab-body-active {
   overflow-y: hidden !important;
 }
+
+.filter-table-header {
+  min-height: 64px;
+  display: flex;
+  align-items: baseline;
+  padding: 8px 24px 0;
+  font-size: 20px;
+  justify-content: space-between;
+}

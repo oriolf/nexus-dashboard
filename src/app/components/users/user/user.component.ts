@@ -42,10 +42,7 @@ export class UserComponent implements OnInit {
     },
     required: ['maxSessions']
   };
-  tagValue = {
-    a: [1, 2, 3],
-    b: "asd"
-  };
+  tagValue = '';
 
   constructor(
     private route: ActivatedRoute,

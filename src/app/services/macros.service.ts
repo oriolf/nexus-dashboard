@@ -57,4 +57,16 @@ export class MacrosService {
     });
   }
 
+  directActionFull(
+    action: any,
+    thenAction: any,
+    catchAction: any
+  ) {
+    action().then(res => {
+      thenAction(res);
+    }).catch(err => {
+      catchAction(err);
+    });
+  }
+
 }

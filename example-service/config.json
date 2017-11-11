@@ -3,7 +3,8 @@
         "url": "localhost",
         "user": "root",
         "pass": "root",
-        "log-level": "debug"
+        "log-level": "debug",
+        "pulls": 6
     },
     "services": {
         "fib": {
