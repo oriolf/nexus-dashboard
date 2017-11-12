@@ -186,6 +186,18 @@ export class NexusService {
     return this.genericNexusFunction('taskPush', [path, params, timeout]);
   }
 
+  topicPublish(topic: string, params: any): Promise<any> {
+    return this.genericNexusFunction('topicPublish', [topic, params]);
+  }
+
+  topicSubscribe(pipe: any, topic: string): Promise<any> {
+    return this.genericNexusFunction('topicSubscribe', [pipe, topic]);
+  }
+
+  pipeCreate(): Promise<any> {
+    return this.genericNexusFunction('pipeCreate', [{}]);
+  }
+
   logout() {
     this.client.then(client => client.close());
     this.client = null;
@@ -248,9 +260,24 @@ export class NexusService {
           } else {
             res(response);
           }
-        })
+        });
         c[func].apply(this, params);
       });
+    });
+  }
+
+  // TODO handle errors correctly
+  pipeObservable(pipe: any): Observable<any> {
+    return new Observable(observer => {
+      let read = () => {
+        pipe.read(1, 60, (response, err) => {
+          if (!err && response.msgs[0]) {
+            observer.next(response.msgs[0].msg.msg);
+          }
+          read();
+        });
+      }
+      read();
     });
   }
 

@@ -38,7 +38,7 @@ func main() {
 
 func fib(task *nxsugar.Task) (interface{}, *nxsugar.JsonRpcErr) {
 	n := ei.N(task.Params).M("n").IntZ()
-	var r []int
+	var r []int = []int{}
 	for i, j := 0, 1; j < n; i, j = i+j, i {
 		r = append(r, i)
 	}
