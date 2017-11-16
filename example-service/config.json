@@ -7,11 +7,13 @@
         "pulls": 6
     },
     "services": {
-        "fib": {
-            "path": "examples.fibonacci"
+        "fibonacci": {
+            "path": "examples.fibonacci",
+            "description": "A service to obtain Fibonacci series."
         },
         "square": {
-            "path": "examples.square"
+            "path": "examples.square",
+            "description": "A service to obtain the square of a number."
         }
     }
 }

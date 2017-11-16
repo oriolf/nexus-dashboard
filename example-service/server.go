@@ -13,7 +13,7 @@ func main() {
 		log.Fatalln("Could not create server:", err)
 	}
 
-	servicefib, err := server.AddService("fib")
+	servicefib, err := server.AddService("fibonacci")
 	if err != nil {
 		log.Fatalln("Could not create service fibonacci:", err)
 	}

@@ -1,10 +1,11 @@
+<div class="filter-table-header">
+  <mat-form-field floatPlaceholder="never">
+    <input matInput placeholder="Filter tasks" [formControl]="prefix">
+  </mat-form-field>
+</div>
+
 <mat-card>
   <mat-card-content>
-    <div class="filter-table-header">
-      <mat-form-field floatPlaceholder="never">
-        <input matInput placeholder="Filter tasks" [formControl]="prefix">
-      </mat-form-field>
-    </div>
 
     <mat-table #table [dataSource]="dataSource">
 

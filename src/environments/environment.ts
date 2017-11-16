@@ -5,5 +5,10 @@
 
 export const environment = {
   production: false,
-  host: 'ws://localhost:443'
+  host: 'ws://localhost:443',
+  services: [
+    'examples.fibonacci',
+    'examples.square',
+    'examples.false'
+  ]
 };

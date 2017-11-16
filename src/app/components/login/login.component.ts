@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  // TODO handle errors
   login() {
     this.loggingIn = true;
     let v = this.form.value;

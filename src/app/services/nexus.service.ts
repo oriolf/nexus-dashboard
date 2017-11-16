@@ -215,7 +215,7 @@ export class NexusService {
               that.clientversion = client.version();
               that.nexusversion = client.nexusVersion();
               res(client);
-              that.router.navigate(['/users']);
+              that.router.navigate(['/services']);
             } else {
               client.close();
               rej(false);

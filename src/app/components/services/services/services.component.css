@@ -1,0 +1,28 @@
+.example-headers-align .mat-expansion-panel-header-title, 
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.services-list .services-item {
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+
+.services-list .services-item.flex-3 {
+  flex: 3;
+}
+
+.example-headers-align {
+  margin: 20px;
+}
+
+.example-headers-align .mat-expansion-panel {
+  margin-right: 10px;
+  margin-left: 10px;
+}

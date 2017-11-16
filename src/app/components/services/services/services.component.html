@@ -1,3 +1,51 @@
-<p>
-  services works!
-</p>
+<div class="filter-table-header">
+  <mat-form-field floatPlaceholder="never">
+    <input matInput placeholder="Filter services" [formControl]="prefix">
+  </mat-form-field>
+</div>
+
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel hideToggle="true" *ngFor="let path of serviceshow">
+
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ path }}
+      </mat-panel-title>
+      <mat-panel-description>
+        <span *ngIf="services[path].info">{{ services[path].info.description }}</span>
+        <span *ngIf="!services[path].info"> - </span>
+
+        <mat-icon *ngIf="services[path].info">check_circle</mat-icon>
+        <mat-icon *ngIf="!services[path].info">close</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-tab-group>
+      <mat-tab label="Info">
+        <mat-list class="services-list">
+          <mat-list-item>
+            <button mat-icon-button>
+              <mat-icon mat-list-icon>assignment</mat-icon>
+            </button>
+            <p class="services-item">Pull count</p>
+            <span class="flex-3 services-item">{{ services[path].pulls }}</span>
+          </mat-list-item>
+
+          <mat-list-item>
+            <button mat-icon-button (click)="pingService(path)">
+              <mat-icon mat-list-icon>timer</mat-icon>
+            </button>
+            <p class="services-item">Ping service</p>
+            <span class="flex-3 services-item" *ngIf="services[path].ping">{{ services[path].ping.min }} / {{ services[path].ping.avg }} / {{ services[path].ping.max }} ms</span>
+            <span class="flex-3 services-item" *ngIf="!services[path].ping"> - / - / - </span>
+          </mat-list-item>
+        </mat-list>
+      </mat-tab>
+
+      <mat-tab label="Schema">
+        <pre style="font-size: 11px; line-height: 13px;">{{ services[path].schemastring }}</pre>
+      </mat-tab>
+    </mat-tab-group>
+
+  </mat-expansion-panel>
+</mat-accordion>

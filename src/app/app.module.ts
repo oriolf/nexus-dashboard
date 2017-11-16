@@ -24,7 +24,8 @@ import {
   MatDialogModule,
   MatSnackBarModule,
   MatTabsModule,
-  MatSelectModule
+  MatSelectModule,
+  MatExpansionModule
 } from '@angular/material';
 
 import { NexusService } from './services/nexus.service';
@@ -91,7 +92,8 @@ import { TasksComponent } from './components/services/tasks/tasks.component';
     MatDialogModule,
     MatSnackBarModule,
     MatTabsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatExpansionModule
   ],
   providers: [
     LoggedInGuard,
