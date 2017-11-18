@@ -28,7 +28,9 @@ export class PushComponent implements OnInit {
   }
 
   push() {
-    this.nexus.taskPush(this.form.get('path').value, this.pushParams, 1).then(res => {
+    this.error = '';
+    this.result = '';
+    this.nexus.taskPush(this.form.get('path').value, this.pushParams, 20).then(res => {
       this.result = JSON.stringify(res, null, 2);
       this.error = '';
     }).catch(err => {

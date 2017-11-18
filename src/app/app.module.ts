@@ -26,7 +26,8 @@ import {
   MatTabsModule,
   MatSelectModule,
   MatExpansionModule,
-  MatGridListModule
+  MatGridListModule,
+  MatRadioModule
 } from '@angular/material';
 
 import { NexusService } from './services/nexus.service';
@@ -47,6 +48,7 @@ import { SyncComponent } from './components/general/sync/sync.component';
 import { ServicesComponent } from './components/services/services/services.component';
 import { PushComponent } from './components/services/push/push.component';
 import { TasksComponent } from './components/services/tasks/tasks.component';
+import { PullComponent } from './components/services/pull/pull.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import { TasksComponent } from './components/services/tasks/tasks.component';
     SyncComponent,
     ServicesComponent,
     PushComponent,
-    TasksComponent
+    TasksComponent,
+    PullComponent
   ],
   entryComponents: [
     UserCreateDialogComponent,
@@ -95,7 +98,8 @@ import { TasksComponent } from './components/services/tasks/tasks.component';
     MatTabsModule,
     MatSelectModule,
     MatExpansionModule,
-    MatGridListModule
+    MatGridListModule,
+    MatRadioModule
   ],
   providers: [
     LoggedInGuard,

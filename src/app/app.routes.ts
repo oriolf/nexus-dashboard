@@ -13,6 +13,7 @@ import { TopicsComponent } from './components/general/topics/topics.component';
 import { SyncComponent } from './components/general/sync/sync.component';
 import { TasksComponent } from './components/services/tasks/tasks.component';
 import { PushComponent } from './components/services/push/push.component';
+import { PullComponent } from './components/services/pull/pull.component';
 import { ServicesComponent } from './components/services/services/services.component';
 
 var appRoutes: Routes = [
@@ -30,6 +31,7 @@ var appRoutes: Routes = [
 
     { path: 'tasks', component: TasksComponent, canActivate: [LoggedInGuard] },
     { path: 'push', component: PushComponent, canActivate: [LoggedInGuard] },
+    { path: 'pull', component: PullComponent, canActivate: [LoggedInGuard] },
     { path: 'services', component: ServicesComponent, canActivate: [LoggedInGuard] },
 
     { path: '**', redirectTo: 'login', pathMatch: 'full' }

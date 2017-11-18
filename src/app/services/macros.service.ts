@@ -58,6 +58,7 @@ export class MacrosService {
   }
 
   directActionFull(
+    errorText: string,
     action: any,
     thenAction: any,
     catchAction: any
@@ -66,6 +67,9 @@ export class MacrosService {
       thenAction(res);
     }).catch(err => {
       catchAction(err);
+      if (errorText) {
+        this.snackBar.open(errorText + err.message, 'OK');
+      }
     });
   }
 

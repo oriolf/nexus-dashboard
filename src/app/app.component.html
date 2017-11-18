@@ -19,7 +19,7 @@
 			<div *ngFor="let linkGroup of linkGroups">
 				<h2 mat-subheader>{{ linkGroup.name }}</h2>
 
-				<button mat-button class="menu-button" *ngFor="let link of linkGroup.links" [routerLink]="link.route">
+				<button mat-button class="menu-button" *ngFor="let link of linkGroup.links" [routerLink]="link.route" routerLinkActive="active-link">
 					<mat-list-item>
 						<mat-icon mat-list-icon>{{ link.icon }}</mat-icon>
 						<h3 mat-line>{{ link.name }}</h3>

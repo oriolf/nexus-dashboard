@@ -30,7 +30,8 @@ export class AppComponent {
       name: 'Services',
       links: [
         { name: 'Tasks', route: '/tasks', icon: 'assignment' },
-        { name: 'Push', route: '/push', icon: 'send' },
+        { name: 'Push', route: '/push', icon: 'arrow_forward' },
+        { name: 'Pull', route: '/pull', icon: 'arrow_back' },
         { name: 'Services', route: '/services', icon: 'explore' }
       ]
     }

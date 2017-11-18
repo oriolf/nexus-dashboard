@@ -186,6 +186,10 @@ export class NexusService {
     return this.genericNexusFunction('taskPush', [path, params, timeout]);
   }
 
+  taskPull(path: string, timeout: number): Promise<any> {
+    return this.genericNexusFunction('taskPull', [path, timeout]);
+  }
+
   topicPublish(topic: string, params: any): Promise<any> {
     return this.genericNexusFunction('topicPublish', [topic, params]);
   }
@@ -215,7 +219,7 @@ export class NexusService {
               that.clientversion = client.version();
               that.nexusversion = client.nexusVersion();
               res(client);
-              that.router.navigate(['/dashboard']);
+              that.router.navigate(['/pull']);
             } else {
               client.close();
               rej(false);
