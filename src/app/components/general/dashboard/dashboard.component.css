@@ -1,0 +1,25 @@
+.dashboard-card {
+  height: calc(100% - 68px);
+  width: 100%;
+  text-align: center;
+}
+
+.dashboard-card h2 {
+  font-size: 3em;
+  margin-bottom: 15px;
+}
+
+.dashboard-card h3 {
+  margin: 0 0 10px 0;
+}
+
+.dashboard-card p {
+  font-size: 1.5em;
+  margin: 10px 0 0 0;
+}
+
+.dashboard-card .spinner {
+  width: 55px;
+  height: 55px;
+  margin: 0 auto;
+}

@@ -82,7 +82,7 @@ export class NexusService {
     });
   }
 
-  nodeList(limit: number, skip: number): Promise<any> {
+  nodeList(limit: number, skip: number): Promise<Node[]> {
     return this.genericNexusFunction('nodeList', [limit, skip]);
   }
 
@@ -215,7 +215,7 @@ export class NexusService {
               that.clientversion = client.version();
               that.nexusversion = client.nexusVersion();
               res(client);
-              that.router.navigate(['/services']);
+              that.router.navigate(['/dashboard']);
             } else {
               client.close();
               rej(false);

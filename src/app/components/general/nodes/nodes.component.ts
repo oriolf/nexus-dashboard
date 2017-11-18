@@ -4,6 +4,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 
 import { Node } from '../../../shared/models';
+import { formatLoad } from '../../../shared/functions';
 import { NexusService } from '../../../services/nexus.service';
 
 @Component({
@@ -23,10 +24,7 @@ export class NodesComponent implements OnInit {
     this.dataSource = new NodesDataSource(this.nexus);
   }
 
-  formatLoad(load: { string: number }): string {
-    return '' + load['Load1'] + ' / ' + load['Load5'] + ' / ' + load['Load15'];
-  }
-
+  formatLoad(load: { string: number }): string { return formatLoad(load); }
 }
 
 export class NodesDataSource extends DataSource<any> {

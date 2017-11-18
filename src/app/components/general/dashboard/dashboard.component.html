@@ -1,8 +1,55 @@
-<mat-card>
-  <mat-card-header>
-    Dashboard
-  </mat-card-header>
-  <mat-card-content>
-    Nothing to see here yet
-  </mat-card-content>
-</mat-card>
+<mat-grid-list cols="3" rowHeight="200px">
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <h3>Services</h3>
+      </mat-card-header>
+      <mat-card-content>
+        <h2 *ngIf="!loadingServices">{{ services }} / {{ totalServices }}</h2>
+        <mat-spinner *ngIf="loadingServices" class="spinner" [diameter]="55" [strokeWidth]="5"></mat-spinner>
+        <p>active services</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <h3>Users</h3>
+      </mat-card-header>
+      <mat-card-content>
+        <h2 *ngIf="!loadingUsers">{{ users }}</h2>
+        <mat-spinner *ngIf="loadingUsers" class="spinner" [diameter]="55" [strokeWidth]="5"></mat-spinner>
+        <p>total users</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <h3>Tasks</h3>
+      </mat-card-header>
+      <mat-card-content>
+        <h2 *ngIf="!loadingTasks">{{ tasks }}</h2>
+        <mat-spinner *ngIf="loadingTasks" class="spinner" [diameter]="55" [strokeWidth]="5"></mat-spinner>
+        <p>active tasks</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <h3>Nodes</h3>
+      </mat-card-header>
+      <mat-card-content>
+        <h2 *ngIf="!loadingNodes">{{ nodes.count }}</h2>
+        <mat-spinner *ngIf="loadingNodes" class="spinner" [diameter]="55" [strokeWidth]="5"></mat-spinner>
+        <p *ngIf="!loadingNodes">{{ formatLoad(nodes.Load) }}</p>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1" [rowspan]="1"></mat-grid-tile>
+</mat-grid-list>
