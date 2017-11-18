@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 import { NexusService } from '../../../services/nexus.service';
 
@@ -67,7 +67,21 @@ export class ServicesComponent implements OnInit {
   updateSchema(servicepath: string) {
     this.nexus.taskPush(servicepath + '.@schema', null, 5).then(res => {
       this.services[servicepath]['schema'] = res;
+      this.services[servicepath]['methodSelected'] = new FormControl('', [Validators.required]);
       this.services[servicepath]['schemastring'] = JSON.stringify(res, null, 2);
+      this.services[servicepath]['methods'] = [];
+      for (let method in res) {
+        this.services[servicepath]['methods'].push(method);
+      }
+      this.services[servicepath]['methodSelected'].valueChanges.subscribe(v => {
+        this.services[servicepath]['pushSchema'] = undefined;
+        this.services[servicepath]['noSchema'] = false;
+        if (res[v]['input']) {
+          this.services[servicepath]['pushSchema'] = res[v]['input'];
+        } else {
+          this.services[servicepath]['noSchema'] = true;
+        }
+      });
     }).catch(err => console.log('Service @schema error:', err));
   }
 
@@ -99,6 +113,16 @@ export class ServicesComponent implements OnInit {
       });
     }
     ping();
+  }
+
+  pushService(path: string, event: any) {
+    this.services[path]['pushResult'] = undefined;
+    this.services[path]['pushError'] = undefined;
+    this.nexus.taskPush(path + '.' + this.services[path]['methodSelected'].value, event, 10).then(res => {
+      this.services[path]['pushResult'] = JSON.stringify(res, null, 2);
+    }).catch(err => {
+      this.services[path]['pushError'] = JSON.stringify(err, null, 2);
+    });
   }
 
 }

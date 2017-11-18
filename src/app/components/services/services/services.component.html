@@ -42,6 +42,34 @@
         </mat-list>
       </mat-tab>
 
+      <mat-tab label="Push">
+        <mat-form-field *ngIf="services[path].methodSelected" style="margin-top: 15px;">
+          <mat-select placeholder="Method" [formControl]="services[path].methodSelected" required>
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let method of services[path].methods" [value]="method">
+              {{ method }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="services[path].methodSelected.hasError('required')">Please choose a method</mat-error>
+        </mat-form-field>
+
+        <div *ngIf="services[path].pushSchema">
+          <h3>Input parameters</h3>
+          <json-schema-form [schema]="services[path].pushSchema" (onSubmit)="pushService(path, $event)"></json-schema-form>
+        </div>
+        <div *ngIf="services[path].noSchema">No input schema for this method. Please, select another method or use the "Push" option in the menu.</div>
+
+        <div *ngIf="services[path].pushResult">
+          <h3>Result</h3>
+          <pre>{{ services[path].pushResult }}</pre>
+        </div>
+
+        <div *ngIf="services[path].pushError">
+          <h3>Error</h3>
+          <pre>{{ services[path].pushError }}</pre>
+        </div>
+      </mat-tab>
+
       <mat-tab label="Schema">
         <pre style="font-size: 11px; line-height: 13px;">{{ services[path].schemastring }}</pre>
       </mat-tab>
