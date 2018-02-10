@@ -22,19 +22,13 @@ export class UserComponent implements OnInit {
   formTemplate: FormGroup;
   formWhitelist: FormGroup;
   formBlacklist: FormGroup;
+  formEditPassword: FormGroup;
   addTagsForm: FormGroup;
   tryPasswordSchema: any = {
     properties: {
       password: { type: 'string', widget: 'password' }
     },
     required: ['password']
-  };
-  editPasswordSchema: any = {
-    properties: {
-      password: { 'type': 'string', widget: 'password' },
-      confirm_password: { 'type': 'string', widget: 'password' }
-    },
-    required: ['password', 'confirm_password']
   };
   editMaxsessionsSchema: any = {
     properties: {
@@ -59,6 +53,10 @@ export class UserComponent implements OnInit {
       path: ['', Validators.required],
       tag: ['', Validators.required]
     });
+    this.formEditPassword = this.fb.group({
+      password: ['', Validators.required],
+      confirmPassword: ['', Validators.required]
+    }, { validator: this.matchingPasswords });
     this.route.paramMap.subscribe(params => {
       this.username = params.get('name');
       this.reloadUser();
@@ -97,14 +95,14 @@ export class UserComponent implements OnInit {
   deleteWhitelist(ip: string) { this.genericAction('Could not delete white list ip: ', () => this.nexus.UserDelWhitelist(this.username, ip)); }
   addBlacklist() { this.genericAction('Could not add black list ip: ', () => this.nexus.UserAddBlacklist(this.username, this.formBlacklist.value['ip'])); }
   deleteBlacklist(ip: string) { this.genericAction('Could not delete black list ip: ', () => this.nexus.UserDelBlacklist(this.username, ip)); }
-  editPassword(event) { this.genericAction('Could not change user password: ', () => this.nexus.userSetPass(this.username, event.password)); }
+  editPassword() { this.genericAction('Could not change user password: ', () => this.nexus.userSetPass(this.username, this.formEditPassword.value['password'])); }
   editMaxsessions(event) { this.genericAction('Could not change max sessions: ', () => this.nexus.userSetMaxSessions(this.username, event.maxSessions)); }
   addTag() {
     let path = this.addTagsForm.get('path').value;
     let tag = this.addTagsForm.get('tag').value;
     let tags = {};
     tags[tag] = this.tagValue;
-    this.genericAction('Could not add tags: ', () => this.nexus.userSetTags(this.username, path, tags)); 
+    this.genericAction('Could not add tags: ', () => this.nexus.userSetTags(this.username, path, tags));
   }
   tryPassword(event) {
     this.macros.directActionWithConfirmation(
@@ -121,6 +119,15 @@ export class UserComponent implements OnInit {
       action,
       () => this.reloadUser()
     );
+  }
+
+  matchingPasswords(group: FormGroup): {[key: string]: any} {
+    let password = group.controls['password'];
+    let confirmPassword = group.controls['confirmPassword'];
+
+    if (password.value !== confirmPassword.value) {
+      return { mismatchedPasswords: true };
+    }
   }
 
   format(value: any) { return JSON.stringify(value); }

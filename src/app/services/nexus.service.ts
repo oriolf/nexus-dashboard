@@ -260,6 +260,9 @@ export class NexusService {
       this.client.then(c => {
         params.push((response, err) => {
           if (err) {
+            if (err.code === -32007) {
+              setTimeout(() => { location.reload(); }, 2000);
+            }
             rej(err);
           } else {
             res(response);
