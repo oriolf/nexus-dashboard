@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { routing } from './app.routes';
 import { AppComponent } from './app.component';
 
-import { JsonSchemaFormModule } from 'angular2-json-schema-form';
+import { JsonSchemaFormModule, MaterialDesignFrameworkModule } from 'angular2-json-schema-form';
 import { JSONEditorModule } from 'ngx-jsoneditor';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -79,7 +79,8 @@ import { PullComponent } from './components/services/pull/pull.component';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    JsonSchemaFormModule,
+    MaterialDesignFrameworkModule,
+    JsonSchemaFormModule.forRoot(MaterialDesignFrameworkModule),
     JSONEditorModule,
     FlexLayoutModule,
     MatToolbarModule,

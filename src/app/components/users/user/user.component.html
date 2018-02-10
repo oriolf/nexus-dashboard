@@ -39,8 +39,8 @@
     </div>
 
 
-    <mat-tab-group>
-      <mat-tab label="Tags">
+      <div label="Tags">
+        <h3>Tags</h3>
         <div style="display: flex; flex-wrap: wrap;">
           <pre style="flex: 1;">{{ this.tags }}</pre>
           <div style="flex: 1;">
@@ -58,9 +58,10 @@
             </mat-list>
           </div>
         </div>
-      </mat-tab>
+      </div>
 
-      <mat-tab label="Add tags">
+      <div label="Add tags">
+        <h3>Add tags</h3>
         <div style="margin-top: 20px;">
           <json-editor [(ngModel)]="tagValue" [config]="{mode: 'code'}"></json-editor>
         </div>
@@ -78,13 +79,15 @@
             </button>
           </div>
         </form>
-      </mat-tab>
+      </div>
 
-      <mat-tab label="Expanded tags">
+      <div label="Expanded tags">
+        <h3>Expanded tags</h3>
         <pre>{{ this.effectivetags }}</pre>
-      </mat-tab>
+      </div>
 
-      <mat-tab label="Templates">
+      <div label="Templates">
+        <h3>Templates</h3>
         <mat-list>
           <mat-list-item *ngFor="let template of user.Templates">
             <button mat-icon-button [routerLink]="'/users/' + template">
@@ -107,9 +110,10 @@
             </form>
           </mat-list-item>
         </mat-list>
-      </mat-tab>
+      </div>
 
-      <mat-tab label="White list">
+      <div label="White list">
+        <h3>White list</h3>
         <mat-list>
           <mat-list-item *ngFor="let ip of user.Whitelist">
             <button mat-icon-button (click)="deleteWhitelist(ip)">
@@ -129,9 +133,10 @@
             </form>
           </mat-list-item>
         </mat-list>
-      </mat-tab>
+      </div>
 
-      <mat-tab label="Black list">
+      <div label="Black list">
+        <h3>Black list</h3>
         <mat-list>
           <mat-list-item *ngFor="let ip of user.Blacklist">
             <button mat-icon-button (click)="deleteBlacklist(ip)">
@@ -151,9 +156,10 @@
             </form>
           </mat-list-item>
         </mat-list>
-      </mat-tab>
+      </div>
 
-      <mat-tab label="Edit">
+      <div label="Edit">
+        <h3>Edit</h3>
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between;" *ngIf="!reloading">
           <div style="flex: 1; padding: 10px;">
             <h3>Try password</h3>
@@ -166,8 +172,7 @@
             <json-schema-form [schema]="editMaxsessionsSchema" (onSubmit)="editMaxsessions($event)"></json-schema-form>
           </div>
         </div>
-      </mat-tab>
-    </mat-tab-group>
+      </div>
 
   </mat-card-content>
 </mat-card>

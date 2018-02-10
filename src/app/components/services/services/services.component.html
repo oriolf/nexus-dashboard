@@ -20,8 +20,8 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <mat-tab-group>
-      <mat-tab label="Info">
+      <div label="Info">
+        <h2>Info</h2>
         <mat-list class="services-list">
           <mat-list-item>
             <button mat-icon-button>
@@ -40,9 +40,10 @@
             <span class="flex-3 services-item" *ngIf="!services[path].ping"> - / - / - </span>
           </mat-list-item>
         </mat-list>
-      </mat-tab>
+      </div>
 
-      <mat-tab label="Push">
+      <div label="Push">
+        <h2>Push</h2>
         <mat-form-field *ngIf="services[path].methodSelected" style="margin-top: 15px;">
           <mat-select placeholder="Method" [formControl]="services[path].methodSelected" required>
             <mat-option>--</mat-option>
@@ -68,12 +69,12 @@
           <h3>Error</h3>
           <pre>{{ services[path].pushError }}</pre>
         </div>
-      </mat-tab>
+      </div>
 
-      <mat-tab label="Schema">
+      <div label="Schema">
+        <h2>Schema</h2>
         <pre style="font-size: 11px; line-height: 13px;">{{ services[path].schemastring }}</pre>
-      </mat-tab>
-    </mat-tab-group>
+      </div>
 
   </mat-expansion-panel>
 </mat-accordion>
