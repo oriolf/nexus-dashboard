@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { NexusService } from './services/nexus.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -38,8 +39,14 @@ export class AppComponent {
   ];
 
   constructor(
-    public nexus: NexusService
-  ) { }
+    public nexus: NexusService,
+    private translate: TranslateService
+  ) {
+    translate.setDefaultLang('en');
+    translate.use('en');
+  }
+
+  setLang(lang: string) { this.translate.use(lang); }
 
   logout() { this.nexus.logout(); }
 }

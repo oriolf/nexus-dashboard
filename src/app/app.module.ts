@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { routing } from './app.routes';
@@ -7,6 +8,8 @@ import { AppComponent } from './app.component';
 
 import { JsonSchemaFormModule, MaterialDesignFrameworkModule } from 'angular2-json-schema-form';
 import { JSONEditorModule } from 'ngx-jsoneditor';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { 
@@ -27,7 +30,8 @@ import {
   MatSelectModule,
   MatExpansionModule,
   MatGridListModule,
-  MatRadioModule
+  MatRadioModule,
+  MatMenuModule
 } from '@angular/material';
 
 import { NexusService } from './services/nexus.service';
@@ -49,6 +53,10 @@ import { ServicesComponent } from './components/services/services/services.compo
 import { PushComponent } from './components/services/push/push.component';
 import { TasksComponent } from './components/services/tasks/tasks.component';
 import { PullComponent } from './components/services/pull/pull.component';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -83,6 +91,14 @@ import { PullComponent } from './components/services/pull/pull.component';
     JsonSchemaFormModule.forRoot(MaterialDesignFrameworkModule),
     JSONEditorModule,
     FlexLayoutModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+    }),
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
@@ -100,7 +116,8 @@ import { PullComponent } from './components/services/pull/pull.component';
     MatSelectModule,
     MatExpansionModule,
     MatGridListModule,
-    MatRadioModule
+    MatRadioModule,
+    MatMenuModule
   ],
   providers: [
     LoggedInGuard,
