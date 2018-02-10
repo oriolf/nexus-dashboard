@@ -60,6 +60,8 @@ export class NexusService {
     return sessions;
   }
 
+  // TODO add and use lockList, lockCount, topicList and topicCount
+
   sessionKick(connID: string): Promise<any> {
     return this.genericNexusFunction('sessionKick', [connID]);
   }
@@ -133,13 +135,14 @@ export class NexusService {
   userTotalObservable(prefix: Observable<string>): Observable<number> {
     return new Observable(observer => {
       prefix.subscribe(p => {
-        this.userList(p, 0, 0).then(res => observer.next(res.length));
+        this.userTotal(p).then(res => observer.next(res));
       });
     });
   }
 
   userTotal(prefix: string): Promise<number> {
-    return this.userList(prefix, 0, 0).then(res => res.length);
+    let ps = this.splitPathPrefixAndSuffix(prefix);
+    return this.genericNexusFunction('userCountWithOpts', [ps[0], this.filter(ps[1])]).then(res => res.count);
   }
 
   userCreate(username: string, password: string): Promise<any> {
@@ -155,7 +158,8 @@ export class NexusService {
   }
 
   userList(prefix: string, limit: number, skip: number): Promise<User[]> {
-    return this.genericNexusFunction('userList', [prefix, limit, skip]);
+    let ps = this.splitPathPrefixAndSuffix(prefix);
+    return this.genericNexusFunction('userListWithOpts', [ps[0], limit, skip, this.filter(ps[1])]);
   }
 
   // TODO handle errors correctly
@@ -171,15 +175,23 @@ export class NexusService {
   }
 
   taskTotal(prefix: string): Promise<number> {
-    return this.taskList(prefix, 0, 0).then(res => res.length);
+    let ps = this.splitPathPrefixAndSuffix(prefix);
+    return this.genericNexusFunction('taskCountWithOpts', [ps[0], this.filter(ps[1])]).then(res => res.count);
   }
 
   taskList(prefix: string, limit: number, skip: number): Promise<Task[]> {
-    return this.genericNexusFunction('taskList', [prefix, limit, skip]).then(res => res.map(t => NewTask(t)));
+    let ps = this.splitPathPrefixAndSuffix(prefix);
+    return this.genericNexusFunction('taskListWithOpts', [ps[0], limit, skip, this.filter(ps[1])]).then(res => res.map(t => NewTask(t)));
+  }
+
+  sessionTotal(prefix: string): Promise<number> {
+    let ps = this.splitPathPrefixAndSuffix(prefix);
+    return this.genericNexusFunction('sessionCountWithOpts', [ps[0], this.filter(ps[1])]).then(res => res.count);
   }
 
   sessionList(prefix: string, limit: number, skip: number): Promise<UserSessions[]> {
-    return this.genericNexusFunction('sessionList', [prefix, limit, skip]);
+    let ps = this.splitPathPrefixAndSuffix(prefix);
+    return this.genericNexusFunction('sessionListWithOpts', [ps[0], limit, skip, this.filter(ps[1])]);
   }
 
   taskPush(path: string, params: any, timeout: number): Promise<any> {
@@ -286,6 +298,17 @@ export class NexusService {
       }
       read();
     });
+  }
+
+  splitPathPrefixAndSuffix(path: string): string[] {
+    let parts = path.split('.');
+    let prefix = parts.slice(0, -1).join('.');
+    let suffix = parts[parts.length-1];
+    return [prefix, suffix];
+  }
+
+  filter(value: string) {
+    return { 'Filter': value, 'LimitByDepth': false, 'Depth': -1 };
   }
 
 }
