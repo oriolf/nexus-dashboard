@@ -1,15 +1,15 @@
 <mat-card>
-  <h2>Publish on topic</h2>
+  <h2 translate>Publish on topic</h2>
   <mat-card-content>
     <json-editor [(ngModel)]="topicParams" [config]="{mode: 'code'}"></json-editor>
 
     <form [formGroup]="form" style="margin-top: 20px; display: flex; justify-content: space-between;">
       <mat-form-field style="width: 40%;">
-        <input matInput placeholder="Topic" formControlName="topic">
+        <input matInput [placeholder]="'Topic' | translate" formControlName="topic">
       </mat-form-field>
       <div style="width: 40%;">
-        <button mat-raised-button [disabled]="!form.valid" color="primary" (click)="publish()">
-          Publish
+        <button mat-raised-button [disabled]="!form.valid" color="primary" (click)="publish()" translate>
+          {{ 'Publish' | translate }}
         </button>
       </div>
     </form>
@@ -17,15 +17,15 @@
 </mat-card>
 
 <mat-card>
-  <h2>Subscribe to a topic</h2>
+  <h2 translate>Subscribe to a topic</h2>
   <mat-card-content>
     <form [formGroup]="formSubscribe" style="display: flex; justify-content: space-between;">
       <mat-form-field style="width: 40%;">
-        <input matInput placeholder="Topic" formControlName="topic" [disabled]="subscribed">
+        <input matInput [placeholder]="'Topic' | translate" formControlName="topic" [disabled]="subscribed">
       </mat-form-field>
       <div style="width: 40%;">
-        <button mat-raised-button [disabled]="!formSubscribe.valid || subscribed" color="primary" (click)="subscribe()">
-          Subscribe
+        <button mat-raised-button [disabled]="!formSubscribe.valid || subscribed" color="primary" (click)="subscribe()" translate>
+          {{ 'Subscribe' | translate }}
         </button>
       </div>
     </form>

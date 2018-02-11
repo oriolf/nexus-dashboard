@@ -1,19 +1,19 @@
 <mat-card *ngIf="user">
-  <h2 style="margin: 0;">User: {{ user.User }}</h2>
+  <h2 style="margin: 0;">{{ 'User' | translate }}: {{ user.User }}</h2>
 
   <mat-card-content *ngIf="user">
     <div class="mat-table" role="grid">
       <div class="mat-row" role="row">
-        <div class="mat-header-cell cdk-column-username mat-column-username" role="columnheader" style="flex: 4;">
+        <div class="mat-header-cell cdk-column-username mat-column-username" role="columnheader" style="flex: 4;" translate>
           Username
         </div>
-        <div class="mat-header-cell cdk-column-maxSessions mat-column-maxSessions" role="columnheader">
+        <div class="mat-header-cell cdk-column-maxSessions mat-column-maxSessions" role="columnheader" translate>
           Max Sessions
         </div>
-        <div class="mat-header-cell cdk-column-maxSessions mat-column-maxSessions" role="columnheader">
-          Actual Sessions
+        <div class="mat-header-cell cdk-column-maxSessions mat-column-maxSessions" role="columnheader" translate>
+          Actual sessions
         </div>
-        <div class="mat-header-cell cdk-column-enabled mat-column-enabled" role="columnheader">
+        <div class="mat-header-cell cdk-column-enabled mat-column-enabled" role="columnheader" translate>
           Enabled
         </div>
       </div>
@@ -40,13 +40,13 @@
 
 
       <div label="Tags">
-        <h3>Tags</h3>
+        <h3 translate>Tags</h3>
         <div style="display: flex; flex-wrap: wrap;">
           <pre style="flex: 1;">{{ this.tags }}</pre>
           <div style="flex: 1;">
             <mat-list>
               <div *ngFor="let key of user.Tags | keys">
-                <h2 mat-subheader>Tags on path: "{{ key }}"</h2>
+                <h2 mat-subheader>{{ 'Tags on path' | translate }}: "{{ key }}"</h2>
                 <mat-list-item *ngFor="let value of user.Tags[key] | keys">
                   <button mat-icon-button (click)="deleteTag(key, value)">
                     <mat-icon mat-list-icon>delete</mat-icon>
@@ -61,33 +61,33 @@
       </div>
 
       <div label="Add tags">
-        <h3>Add tags</h3>
+        <h3 translate>Add tags</h3>
         <div style="margin-top: 20px;">
           <json-editor [(ngModel)]="tagValue" [config]="{mode: 'code'}"></json-editor>
         </div>
 
         <form [formGroup]="addTagsForm" style="margin-top: 20px; display: flex; justify-content: space-between;">
           <mat-form-field style="width: 30%;">
-            <input matInput placeholder="Path" formControlName="path">
+            <input matInput [placeholder]="'Path' | translate" formControlName="path">
           </mat-form-field>
           <mat-form-field style="width: 30%;">
-            <input matInput placeholder="Tag" formControlName="tag">
+            <input matInput [placeholder]="'Tag' | translate" formControlName="tag">
           </mat-form-field>
           <div style="width: 30%;">
             <button mat-raised-button [disabled]="!addTagsForm.valid" color="primary" (click)="addTag()">
-              Add tags
+              {{ 'Add tags' | translate }}
             </button>
           </div>
         </form>
       </div>
 
       <div label="Expanded tags">
-        <h3>Expanded tags</h3>
+        <h3 translate>Expanded tags</h3>
         <pre>{{ this.effectivetags }}</pre>
       </div>
 
       <div label="Templates">
-        <h3>Templates</h3>
+        <h3 translate>Templates</h3>
         <mat-list>
           <mat-list-item *ngFor="let template of user.Templates">
             <button mat-icon-button [routerLink]="'/users/' + template">
@@ -105,7 +105,7 @@
               </button>
 
               <mat-form-field>
-                <input matInput placeholder="New template" formControlName="template">
+                <input matInput [placeholder]="'Add template' | translate" formControlName="template">
               </mat-form-field>
             </form>
           </mat-list-item>
@@ -113,7 +113,7 @@
       </div>
 
       <div label="White list">
-        <h3>White list</h3>
+        <h3 translate>White list</h3>
         <mat-list>
           <mat-list-item *ngFor="let ip of user.Whitelist">
             <button mat-icon-button (click)="deleteWhitelist(ip)">
@@ -128,7 +128,7 @@
               </button>
 
               <mat-form-field>
-                <input matInput placeholder="New white list IP" formControlName="ip">
+                <input matInput [placeholder]="'Add white list IP' | translate" formControlName="ip">
               </mat-form-field>
             </form>
           </mat-list-item>
@@ -136,7 +136,7 @@
       </div>
 
       <div label="Black list">
-        <h3>Black list</h3>
+        <h3 translate>Black list</h3>
         <mat-list>
           <mat-list-item *ngFor="let ip of user.Blacklist">
             <button mat-icon-button (click)="deleteBlacklist(ip)">
@@ -151,7 +151,7 @@
               </button>
 
               <mat-form-field>
-                <input matInput placeholder="New black list IP" formControlName="ip">
+                <input matInput [placeholder]="'Add black list IP' | translate" formControlName="ip">
               </mat-form-field>
             </form>
           </mat-list-item>
@@ -159,12 +159,12 @@
       </div>
 
       <div label="Edit">
-        <h3>Edit</h3>
+        <h3 translate>Edit</h3>
         <div style="display: flex; flex-wrap: wrap; justify-content: space-between;" *ngIf="!reloading">
           <div style="flex: 1; padding: 10px;">
-            <h3>Try password</h3>
+            <h3 translate>Try password</h3>
             <json-schema-form [schema]="tryPasswordSchema" (onSubmit)="tryPassword($event)"></json-schema-form>
-            <h3>Edit password</h3>
+            <h3 translate>Edit password</h3>
             <form [formGroup]="formEditPassword">
               <mat-form-field style="width: 100%">
                 <input matInput placeholder="Password *" formControlName="password" type="password">
@@ -174,12 +174,12 @@
               </mat-form-field>
 
               <div><button mat-raised-button [disabled]="!formEditPassword.valid" (click)="editPassword()" color="primary">
-                  Submit
+                  {{ 'Submit' | translate }}
               </button></div>
             </form>
           </div>
           <div style="flex: 1; padding: 10px;">
-            <h3>Edit maximum sessions</h3>
+            <h3 translate>Edit maximum sessions</h3>
             <json-schema-form [schema]="editMaxsessionsSchema" (onSubmit)="editMaxsessions($event)"></json-schema-form>
           </div>
         </div>
@@ -189,5 +189,5 @@
 </mat-card>
 
 <mat-card *ngIf="!user">
-  <p>User does not exist</p>
+  <p translate>User does not exist</p>
 </mat-card>

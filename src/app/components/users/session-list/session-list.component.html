@@ -1,6 +1,6 @@
 <div class="filter-table-header">
   <mat-form-field floatPlaceholder="never">
-    <input matInput placeholder="Filter users" [formControl]="prefix">
+    <input matInput [placeholder]="'Filter users' | translate" [formControl]="prefix">
   </mat-form-field>
 </div>
 
@@ -22,7 +22,7 @@
       </ng-container>
 
       <ng-container matColumnDef="username">
-        <mat-header-cell *matHeaderCellDef style="flex: 2;"> Username </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef style="flex: 2;" translate> Username </mat-header-cell>
         <mat-cell *matCellDef="let row" style="flex: 2;"> {{ row.User }} </mat-cell>
       </ng-container>
 
@@ -32,17 +32,17 @@
       </ng-container>
 
       <ng-container matColumnDef="remoteAddress">
-        <mat-header-cell *matHeaderCellDef> Remote address </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef translate> Remote address </mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.RemoteAddress }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="protocol">
-        <mat-header-cell *matHeaderCellDef style="flex: 0.5;"> Protocol </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef style="flex: 0.5;" translate> Protocol </mat-header-cell>
         <mat-cell *matCellDef="let row" style="flex: 0.5;">{{ row.Protocol }}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="creationTime">
-        <mat-header-cell *matHeaderCellDef> Creation time </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef translate> Creation time </mat-header-cell>
         <mat-cell *matCellDef="let row">{{ formatTime(row.CreationTime) }}</mat-cell>
       </ng-container>
 

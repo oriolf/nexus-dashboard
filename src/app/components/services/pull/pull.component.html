@@ -3,7 +3,7 @@
   <mat-card-content>
     <form [formGroup]="form" style="margin-top: 20px; display: flex; justify-content: space-between;">
       <mat-form-field style="width: 40%;">
-        <input matInput placeholder="Path" formControlName="path">
+        <input matInput [placeholder]="'Path' | translate" formControlName="path">
       </mat-form-field>
       <div style="width: 40%;">
         <button mat-raised-button [disabled]="!form.valid || waiting" color="primary" (click)="pull()">
@@ -14,24 +14,24 @@
 
     <mat-spinner *ngIf="waiting && !taskstring"></mat-spinner>
     <div *ngIf="taskstring">
-      <h3>Task received</h3>
+      <h3 translate>Task received</h3>
       <pre>{{ taskstring }}</pre>
     </div>
   </mat-card-content>
 </mat-card>
 
 <mat-card *ngIf="waiting && taskstring">
-  <h2>Response to task</h2>
+  <h2 translate>Response to task</h2>
 
   <mat-radio-group [(ngModel)]="resultOrError">
-    <mat-radio-button value="result">Result</mat-radio-button>
-    <mat-radio-button value="error">Error</mat-radio-button>
+    <mat-radio-button value="result">{{ 'Result' | translate }}</mat-radio-button>
+    <mat-radio-button value="error">{{ 'Error' | translate }}</mat-radio-button>
   </mat-radio-group>
 
   <div *ngIf="resultOrError === 'result'">
     <json-editor [(ngModel)]="result" [config]="{mode: 'code'}"></json-editor>
     <button mat-raised-button color="primary" (click)="sendError()">
-      Submit
+      {{ 'Submit' | translate }}
     </button>
   </div>
 

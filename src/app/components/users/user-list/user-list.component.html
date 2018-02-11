@@ -1,6 +1,6 @@
 <div class="filter-table-header">
   <mat-form-field floatPlaceholder="never">
-    <input matInput placeholder="Filter users" [formControl]="prefix">
+    <input matInput [placeholder]="'Filter users' | translate" [formControl]="prefix">
   </mat-form-field>
 </div>
 
@@ -22,17 +22,17 @@
       </ng-container>
 
       <ng-container matColumnDef="username">
-        <mat-header-cell *matHeaderCellDef style="flex: 5;"> Username </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef style="flex: 5;" translate> Username </mat-header-cell>
         <mat-cell *matCellDef="let row" style="flex: 5;"> {{ row.User }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="maxSessions">
-        <mat-header-cell *matHeaderCellDef> Max Sessions </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef translate> Max Sessions </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.MaxSessions }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="enabled">
-        <mat-header-cell *matHeaderCellDef> Enabled </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef translate> Enabled </mat-header-cell>
         <mat-cell *matCellDef="let row">
           <button mat-icon-button (click)="setDisabled(row.User, !row.Disabled)">
             <mat-icon *ngIf="!row.Disabled">check_circle</mat-icon>

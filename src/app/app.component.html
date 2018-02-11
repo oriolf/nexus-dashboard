@@ -4,9 +4,9 @@
 	</button>
 	<span class="middle-spacer"></span>
 	<div *ngIf="nexus.isLogged()" class="nexus-version">
-		<span>Nexus version: {{ nexus.version() }}</span>
+		<span>{{ 'Nexus version' | translate }}: {{ nexus.version() }}</span>
 		<br>
-		<span>Client version: {{ nexus.clientVersion() }}</span>
+		<span>{{ 'Client version' | translate }}: {{ nexus.clientVersion() }}</span>
 	</div>
 
 	<button mat-icon-button [matMenuTriggerFor]="menu">
@@ -27,12 +27,12 @@
 	<mat-sidenav #sidenav mode="side" opened="false">
 		<mat-list>
 			<div *ngFor="let linkGroup of linkGroups">
-				<h2 mat-subheader>{{ linkGroup.name }}</h2>
+				<h2 mat-subheader>{{ linkGroup.name | translate }}</h2>
 
 				<button mat-button class="menu-button" *ngFor="let link of linkGroup.links" [routerLink]="link.route" routerLinkActive="active-link">
 					<mat-list-item>
 						<mat-icon mat-list-icon>{{ link.icon }}</mat-icon>
-						<h3 mat-line>{{ link.name }}</h3>
+						<h3 mat-line>{{ link.name | translate }}</h3>
 					</mat-list-item>
 				</button>
 

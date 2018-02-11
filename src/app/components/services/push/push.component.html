@@ -5,7 +5,7 @@
 
     <form [formGroup]="form" style="margin-top: 20px; display: flex; justify-content: space-between;">
       <mat-form-field style="width: 40%;">
-        <input matInput placeholder="Path" formControlName="path">
+        <input matInput [placeholder]="'Path' | translate" formControlName="path">
       </mat-form-field>
       <div style="width: 40%;">
         <button mat-raised-button [disabled]="!form.valid" color="primary" (click)="push()">
@@ -17,8 +17,8 @@
 </mat-card>
 
 <mat-card *ngIf="result || error">
-  <h2 *ngIf="result">Result</h2>
-  <h2 *ngIf="error">Error</h2>
+  <h2 *ngIf="result" translate>Result</h2>
+  <h2 *ngIf="error" translate>Error</h2>
   <mat-card-content>
     <pre *ngIf="result">{{ result }}</pre>
     <pre *ngIf="error">{{ error }}</pre>

@@ -1,6 +1,6 @@
 <div class="filter-table-header">
   <mat-form-field floatPlaceholder="never">
-    <input matInput placeholder="Filter tasks" [formControl]="prefix">
+    <input matInput [placeholder]="'Filter tasks' | translate" [formControl]="prefix">
   </mat-form-field>
 </div>
 
@@ -10,7 +10,7 @@
     <mat-table #table [dataSource]="dataSource">
 
       <ng-container matColumnDef="session">
-        <mat-header-cell *matHeaderCellDef style="flex: 2;"> Session </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef style="flex: 2;" translate> Session </mat-header-cell>
         <mat-cell *matCellDef="let row" style="flex: 2;"> {{ row.Session }} </mat-cell>
       </ng-container>
 
@@ -20,22 +20,22 @@
       </ng-container>
 
       <ng-container matColumnDef="path">
-        <mat-header-cell *matHeaderCellDef style="flex: 2;"> Path </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef style="flex: 2;" translate> Path </mat-header-cell>
         <mat-cell *matCellDef="let row" style="flex: 2;"> {{ row.Path }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="method">
-        <mat-header-cell *matHeaderCellDef> Method </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef translate> Method </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.Method }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="user">
-        <mat-header-cell *matHeaderCellDef style="flex: 2;"> User </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef style="flex: 2;" translate> User </mat-header-cell>
         <mat-cell *matCellDef="let row" style="flex: 2;"> {{ row.User }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef translate> Status </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.Stat }} </mat-cell>
       </ng-container>
 
