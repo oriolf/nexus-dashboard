@@ -31,7 +31,8 @@ import {
   MatExpansionModule,
   MatGridListModule,
   MatRadioModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSelect
 } from '@angular/material';
 
 import { NexusService } from './services/nexus.service';
@@ -79,7 +80,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   entryComponents: [
     UserCreateDialogComponent,
-    AreYouSureDialogComponent
+    AreYouSureDialogComponent,
+    MatSelect
   ],
   imports: [
     routing,

@@ -6,6 +6,7 @@ import { NexusService } from '../../../services/nexus.service';
 import { environment } from '../../../../environments/environment';
 import { Max, Min, isPrefix } from '../../../shared/functions';
 
+declare var JSONEditor;
 @Component({
   selector: 'app-services',
   templateUrl: './services.component.html',
@@ -16,41 +17,52 @@ export class ServicesComponent implements OnInit {
   serviceshow: string[] = [];
   servicepaths: string[] = [];
   prefix = new FormControl('');
+  subscriptions: any[] = [];
+  editor: any;
 
   constructor(
     private nexus: NexusService
   ) { }
 
-  ngOnInit() {
-    this.listPulls();
-    for (let i = 0; i < environment.services.length; i++) {
-      let servicepath = environment.services[i];
-      this.services[servicepath] = { pulls: 0 };
-      this.servicepaths.push(servicepath);
-      this.updateInfo(servicepath);
-      this.updateSchema(servicepath);
+  ngOnDestroy() {
+    for (let subscription of this.subscriptions) {
+      subscription.unsubscribe();
     }
+  }
+
+  async ngOnInit() {
+    await this.listPulls();
+
+    Object.keys(this.services).map(async (servicepath) => {
+      this.servicepaths.push(servicepath);
+      await this.updateInfo(servicepath);
+      await this.updateSchema(servicepath);
+    })
 
     this.serviceshow = this.servicepaths;
-    this.prefix.valueChanges.subscribe(p => {
+
+    this.subscriptions.push(this.prefix.valueChanges.debounceTime(300).subscribe(p => {
       this.serviceshow = [];
       for (let path of this.servicepaths) {
         if (isPrefix(p, path)) {
           this.serviceshow.push(path);
         }
       }
-    });
+    }));
   }
 
-  listPulls() {
+  async listPulls() {
     for (let path in this.services) {
       this.services[path].pulls = 0;
     }
-    this.nexus.taskList('', 0, 0).then(tasks => {
+    await this.nexus.taskList('', 0, 0).then(tasks => {
       for (let task of tasks) {
         if (task.Method === '') {
           let path = task.Path.slice(0, -1);
           if (this.services[path]) {
+            this.services[path]['pulls']++;
+          } else {
+            this.services[path] = { 'pulls': 0 };
             this.services[path]['pulls']++;
           }
         }
@@ -58,14 +70,14 @@ export class ServicesComponent implements OnInit {
     });
   }
 
-  updateInfo(servicepath: string) {
-    this.nexus.taskPush(servicepath + '.@info', null, 5).then(res => {
+  async updateInfo(servicepath: string) {
+    await this.nexus.taskPush(servicepath + '.@info', null, 5).then(res => {
       this.services[servicepath]['info'] = res;
     }).catch(err => console.log('Service @info error:', err));
   }
 
-  updateSchema(servicepath: string) {
-    this.nexus.taskPush(servicepath + '.@schema', null, 5).then(res => {
+  async updateSchema(servicepath: string) {
+    await this.nexus.taskPush(servicepath + '.@schema', null, 5).then(res => {
       this.services[servicepath]['schema'] = res;
       this.services[servicepath]['methodSelected'] = new FormControl('', [Validators.required]);
       this.services[servicepath]['schemastring'] = JSON.stringify(res, null, 2);
@@ -73,15 +85,18 @@ export class ServicesComponent implements OnInit {
       for (let method in res) {
         this.services[servicepath]['methods'].push(method);
       }
-      this.services[servicepath]['methodSelected'].valueChanges.subscribe(v => {
+      this.subscriptions.push(this.services[servicepath]['methodSelected'].valueChanges.subscribe(v => {
         this.services[servicepath]['pushSchema'] = undefined;
         this.services[servicepath]['noSchema'] = false;
         if (res[v]['input']) {
           this.services[servicepath]['pushSchema'] = res[v]['input'];
+          this.initEditor(res[v]['input'])
         } else {
           this.services[servicepath]['noSchema'] = true;
         }
-      });
+        if (servicepath =="nayar.obelisk")
+        console.log(this.services[servicepath]['pushSchema'])
+      }));
     }).catch(err => console.log('Service @schema error:', err));
   }
 
@@ -125,4 +140,19 @@ export class ServicesComponent implements OnInit {
     });
   }
 
+  initEditor(schema){
+    let e = document.getElementById('editor_holder');
+    console.log(e)
+
+
+  var editor = new JSONEditor(e, {
+    schema:schema,
+    iconlib: "material"
+});
+
+    console.log(editor)
+  }
+
 }
+
+
