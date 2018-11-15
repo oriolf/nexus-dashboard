@@ -17,7 +17,7 @@ export class AppComponent {
         { name: 'Dashboard', route: '/dashboard', icon: 'dashboard' },
         { name: 'Nodes', route: '/nodes', icon: 'cloud' },
         { name: 'Topics', route: '/topics', icon: 'format_quote' },
-        { name: 'Sync', route: '/sync', icon: 'lock'}
+        { name: 'Sync', route: '/sync', icon: 'lock' }
       ]
     },
     {

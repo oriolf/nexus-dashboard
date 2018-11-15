@@ -31,7 +31,8 @@ import {
   MatExpansionModule,
   MatGridListModule,
   MatRadioModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSelect
 } from '@angular/material';
 
 import { NexusService } from './services/nexus.service';

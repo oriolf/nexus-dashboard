@@ -54,10 +54,12 @@
           <mat-error *ngIf="services[path].methodSelected.hasError('required')">{{ 'Please choose a method' | translate }}</mat-error>
         </mat-form-field>
 
+        <h3 translate>Input parameters</h3>
+        <div id='editor_holder'></div>  
         <div *ngIf="services[path].pushSchema">
-          <h3 translate>Input parameters</h3>
-          <json-schema-form [schema]="services[path].pushSchema" (onSubmit)="pushService(path, $event)"></json-schema-form>
+          <button mat-raised-button color="primary" (click)="push(path)">Push</button>
         </div>
+        
         <div *ngIf="services[path].noSchema" translate>NO_SCHEMA</div>
 
         <div *ngIf="services[path].pushResult">
