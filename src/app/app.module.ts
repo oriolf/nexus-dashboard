@@ -80,8 +80,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   entryComponents: [
     UserCreateDialogComponent,
-    AreYouSureDialogComponent,
-    MatSelect
+    AreYouSureDialogComponent
   ],
   imports: [
     routing,
