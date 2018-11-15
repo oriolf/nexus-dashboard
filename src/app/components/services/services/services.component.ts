@@ -19,6 +19,7 @@ export class ServicesComponent implements OnInit {
   prefix = new FormControl('');
   subscriptions: any[] = [];
   editor: any;
+  errors: any;
 
   constructor(
     private nexus: NexusService
@@ -90,12 +91,10 @@ export class ServicesComponent implements OnInit {
         this.services[servicepath]['noSchema'] = false;
         if (res[v]['input']) {
           this.services[servicepath]['pushSchema'] = res[v]['input'];
-          this.initEditor(res[v]['input'])
         } else {
           this.services[servicepath]['noSchema'] = true;
         }
-        if (servicepath =="nayar.obelisk")
-        console.log(this.services[servicepath]['pushSchema'])
+        this.initEditor(res[v]['input']);
       }));
     }).catch(err => console.log('Service @schema error:', err));
   }
@@ -140,19 +139,26 @@ export class ServicesComponent implements OnInit {
     });
   }
 
-  initEditor(schema){
+  initEditor(schema) {
     let e = document.getElementById('editor_holder');
-    console.log(e)
-
-
-  var editor = new JSONEditor(e, {
-    schema:schema,
-    iconlib: "material"
-});
-
-    console.log(editor)
+    if (this.editor) {
+      this.editor.destroy();
+    }
+    if (schema) {
+      this.editor = new JSONEditor(e, {
+        schema: schema,
+        iconlib: "material"
+      });
+    }
   }
-
+  push(path){
+    this.errors = null;
+    this.errors = this.editor.validate();
+    if (this.errors.length == 0){
+      var value = this.editor.getValue();
+      this.pushService(path, value);
+    }
+  }
 }
 
 
