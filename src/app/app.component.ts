@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment';
 import { Component } from '@angular/core';
 
 import { NexusService } from './services/nexus.service';
@@ -37,6 +38,7 @@ export class AppComponent {
       ]
     }
   ];
+  nexusHost: string;
 
   constructor(
     public nexus: NexusService,
@@ -44,6 +46,7 @@ export class AppComponent {
   ) {
     translate.setDefaultLang('en');
     translate.use('en');
+    this.nexusHost = environment.host;
   }
 
   setLang(lang: string) { this.translate.use(lang); }

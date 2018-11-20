@@ -1,7 +1,9 @@
 <mat-toolbar color="primary">
 	<button mat-icon-button>
 		<mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+		
 	</button>
+	<span>{{nexusHost}}</span>
 	<span class="middle-spacer"></span>
 	<div *ngIf="nexus.isLogged()" class="nexus-version">
 		<span>{{ 'Nexus version' | translate }}: {{ nexus.version() }}</span>

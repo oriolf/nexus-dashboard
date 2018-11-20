@@ -1,7 +1,7 @@
 <mat-card>
   <h2 translate>Publish on topic</h2>
   <mat-card-content>
-    <json-editor [(ngModel)]="topicParams" [config]="{mode: 'code'}"></json-editor>
+    <json-editor *ngIf="topicParams" [(ngModel)]="topicParams" [config]="{mode: 'code'}"></json-editor>
 
     <form [formGroup]="form" style="margin-top: 20px; display: flex; justify-content: space-between;">
       <mat-form-field style="width: 40%;">
