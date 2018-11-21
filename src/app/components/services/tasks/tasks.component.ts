@@ -47,7 +47,7 @@ export class TasksComponent implements OnInit {
           limit: this.paginator.pageSize,
           skip: this.paginator.pageSize * this.paginator.pageIndex
         });
-      });
+      }).catch(e => console.log(e));
     });
   }
 

@@ -46,12 +46,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.nexus.userTotal('').then(res => {
       this.users = res;
       this.loadingUsers = false;
-    }).catch(err => console.log('Error getting user total:', err));
+    }).catch(err => {
+      console.log('Error getting user total:', err)
+      this.loadingUsers = false;
+      this.users = err.message || JSON.stringify(err);
+    });
 
     this.nexus.taskTotal('').then(res => {
       this.tasks = res;
       this.loadingTasks = false;
-    }).catch(err => console.log('Error getting task total:', err));
+    }).catch(err =>{
+      console.log('Error getting task total:', err)
+      this.loadingTasks = false;
+      this.tasks = err.message || JSON.stringify(err);
+    });
 
     this.nexus.nodeList(0, 0).then(nodes => {
       this.nodes.count = nodes.length;
@@ -62,7 +70,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.nodes.Load['Load15'] += node.Load['Load15'];
       }
       this.loadingNodes = false;
-    }).catch(err => console.log('Error getting nodes:', err));
+    }).catch(err => {
+      console.log('Error getting nodes:', err);
+      this.nodes.Load = { Load1: 0, Load5: 0, Load15: 0 };
+      this.loadingNodes = false;
+      this.nodes.count = err.message || JSON.stringify(err);
+    });
 
     let servicesVisited = 0;
     this.services = 0;

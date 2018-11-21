@@ -53,7 +53,7 @@ export class UserListComponent implements OnInit {
           limit: this.paginator.pageSize,
           skip: this.paginator.pageSize * this.paginator.pageIndex
         });
-      });
+      }).catch(e => console.log(e));
     });
   }
 
