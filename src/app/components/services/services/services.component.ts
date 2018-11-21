@@ -68,7 +68,7 @@ export class ServicesComponent implements OnInit {
           }
         }
       }
-    });
+    }).catch(e => console.log(e));
   }
 
   async updateInfo(servicepath: string) {

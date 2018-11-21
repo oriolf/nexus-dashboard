@@ -29,7 +29,7 @@ export class NexusService {
       params.subscribe(p => {
         this.userList(p.prefix, p.limit, p.skip).then(res => {
           observer.next(res);
-        });
+        }).catch(e => console.log(e));
       });
     });
   }
@@ -39,7 +39,7 @@ export class NexusService {
       changes.subscribe(p => {
         this.sessionList(p.prefix, 0, 0).then(res => {
           observer.next(this.expandSessions(res));
-        });
+        }).catch(e => console.log(e));
       });
     });
   }
@@ -80,7 +80,7 @@ export class NexusService {
 
   nodesObservable(): Observable<Node[]> {
     return new Observable(observer => {
-      this.nodeList(0, 0).then(res => observer.next(res));
+      this.nodeList(0, 0).then(res => observer.next(res)).catch(e => console.log(e));
     });
   }
 
@@ -135,7 +135,7 @@ export class NexusService {
   userTotalObservable(prefix: Observable<string>): Observable<number> {
     return new Observable(observer => {
       prefix.subscribe(p => {
-        this.userTotal(p).then(res => observer.next(res));
+        this.userTotal(p).then(res => observer.next(res)).catch(e => console.log(e));
       });
     });
   }
@@ -169,7 +169,7 @@ export class NexusService {
       params.subscribe(p => {
         this.taskList(p.prefix, p.limit, p.skip).then(res => {
           observer.next(res);
-        });
+        }).catch(e => console.log(e));
       });
     });
   }
@@ -281,7 +281,7 @@ export class NexusService {
           }
         });
         c[func].apply(this, params);
-      });
+      }).catch(e => rej(e));
     });
   }
 

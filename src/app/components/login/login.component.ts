@@ -24,11 +24,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // TODO handle errors
   login() {
     this.loggingIn = true;
     let v = this.form.value;
-    this.nexus.login(v.user, v.password);
+    this.nexus.login(v.user, v.password).catch(() => {
+      this.loggingIn = false;
+    });
   }
 
 }
